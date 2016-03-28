@@ -4,5 +4,6 @@ Runko vuoropohjaiselle strategiapelille, jonka maailma esitetään ruuduista koo
 
 ### Dokumentaatio
 
-[aiheen kuvaus](dokumentaatio/aiheenKuvausJaRakenne.md)
-[tuntikirjanpito](dokumentaatio/tuntikirjanpito.md)
+[aiheen kuvaus](dokumentointi/aiheenKuvausJaRakenne.md)
+
+[tuntikirjanpito](dokumentointi/tuntikirjanpito.md)
