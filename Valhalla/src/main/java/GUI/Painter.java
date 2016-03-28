@@ -20,6 +20,8 @@ public class Painter extends JPanel {
         this.state = state;
         this.viewWidth = width;
         this.viewHeight = height;
+        this.setPreferredSize(new Dimension(width, height));
+        this.setBackground(Color.white);
         this.zoom = 50;
         InputHandler inputHandler = new InputHandler(this);
         addMouseListener(inputHandler);
@@ -38,8 +40,8 @@ public class Painter extends JPanel {
         Square[][] map = state.getMap();
         int topY = offsetY/zoom;
         int leftX = offsetX/zoom;
-        int bottomY = topY + (int) Math.ceil(viewHeight / zoom);
-        int rightX = leftX + (int) Math.ceil(viewWidth / zoom);
+        int bottomY = 1 + topY + (int) Math.ceil(viewHeight / zoom);
+        int rightX = 1 + leftX + (int) Math.ceil(viewWidth / zoom);
         while (bottomY >= map.length) bottomY--;
         while (rightX >= map[bottomY].length) rightX--;
 
@@ -97,19 +99,26 @@ public class Painter extends JPanel {
     private void forceOffsetWithinBounds() {
         this.offsetX = Math.max(0, this.offsetX);
         this.offsetY = Math.max(0, this.offsetY);
-        while (lastDrawnSqOverflows()) {
-            this.offsetX -= 1;
-            this.offsetY -= 1;
-        }
+        while (tooMuchToTheRight() && this.offsetX > 0) this.offsetX--;
+        while (tooMuchToTheSouth() && this.offsetY > 0) this.offsetY--;
     }
 
-    private boolean lastDrawnSqOverflows() {
-        int topY = offsetY/zoom;
-        int leftX = offsetX/zoom;
-        int bottomY = topY + (int) Math.ceil(viewHeight / zoom);
-        int rightX = leftX + (int) Math.ceil(viewWidth / zoom);
-        Square[][] map = state.getMap();
-        return (bottomY >= map.length || rightX >= map[bottomY].length);
+    private boolean tooMuchToTheSouth() {
+        int y = getMapYFromView(viewHeight);
+        return (y >= state.getMap().length);
+    }
+
+    private boolean tooMuchToTheRight() {
+        int x = getMapXFromView(viewWidth);
+        return (x >= state.getMap()[0].length);
+    }
+
+    public int getMapXFromView(int viewX) {
+        return (offsetX+viewX)/zoom;
+    }
+
+    public int getMapYFromView(int viewY) {
+        return (offsetY+viewY)/zoom;
     }
 
 }

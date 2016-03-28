@@ -31,7 +31,7 @@ public class InputHandler implements ActionListener, MouseListener, MouseMotionL
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        //System.out.println("Mouse released event " + e.getX() + "," + e.getY());
+        System.out.println("Mouse released event " + e.getX() + "," + e.getY());
     }
 
     @Override
