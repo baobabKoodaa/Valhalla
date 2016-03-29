@@ -10,15 +10,20 @@ public class View {
     private Painter painter;
 
     public View(State state) {
-        int height = 800;
-        int width = 800;
+        int height = 1200;
+        int width = 1200;
         frame = new JFrame();
         painter = new Painter(state, width, height);
         frame.getContentPane().add(painter);
-        frame.setVisible(true);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLocationRelativeTo(null);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.pack();
+        frame.setVisible(true);
+        frame.setLocationRelativeTo(null);
     }
+
+    public void repaint() {
+        painter.repaint();
+    }
+
 }
 

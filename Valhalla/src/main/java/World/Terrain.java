@@ -1,5 +1,5 @@
 package World;
 
 public enum Terrain {
-    DESERT, GRASS
+    DESERT, GRASS, ATOMICSNOW
 }

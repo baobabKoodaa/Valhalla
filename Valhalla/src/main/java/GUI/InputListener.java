@@ -1,14 +1,16 @@
 package GUI;
 
+import Util.Point;
+
 import java.awt.event.*;
 
-public class InputHandler implements ActionListener, MouseListener, MouseMotionListener, MouseWheelListener {
+public class InputListener implements ActionListener, MouseListener, MouseMotionListener, MouseWheelListener {
 
-    private int lastDragX;
-    private int lastDragY;
+    private Point lastDrag;
+    private Point lastPress;
     private Painter painter;
 
-    public InputHandler(Painter painter) {
+    public InputListener(Painter painter) {
         this.painter = painter;
     }
 
@@ -19,19 +21,24 @@ public class InputHandler implements ActionListener, MouseListener, MouseMotionL
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        //System.out.println("Mouse clicked event " + e.getX() + "," + e.getY());
+        /* Not using this event, because it would incorrectly trigger from mouse drags */
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        this.lastDragX = e.getX();
-        this.lastDragY = e.getY();
-        //System.out.println("Mouse pressed event " + e.getX() + "," + e.getY());
+        Point point = getPoint(e);
+
+        /* User may intend to click or drag */
+        lastDrag = point;
+        lastPress = point;
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        System.out.println("Mouse released event " + e.getX() + "," + e.getY());
+        Point point = getPoint(e);
+        if (point.equals(lastPress)) {
+            painter.userClickedOn(point);
+        }
     }
 
     @Override
@@ -46,12 +53,11 @@ public class InputHandler implements ActionListener, MouseListener, MouseMotionL
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        //System.out.println("Mouse dragged event " + e.getX() + "," + e.getY());
-        int offsetChangeX = this.lastDragX - e.getX();
-        int offsetChangeY = this.lastDragY - e.getY();
-        this.lastDragX = e.getX();
-        this.lastDragY = e.getY();
-        painter.modifyOffset(offsetChangeX, offsetChangeY);
+        Point point = getPoint(e);
+        int offsetChangeX = lastDrag.x - point.x;
+        int offsetChangeY = lastDrag.y - point.y;
+        lastDrag = point;
+        painter.mouseDragged(offsetChangeX, offsetChangeY);
     }
 
     @Override
@@ -63,5 +69,9 @@ public class InputHandler implements ActionListener, MouseListener, MouseMotionL
     public void mouseWheelMoved(MouseWheelEvent e) {
         if (e.getWheelRotation() < 0) painter.zoomIn();
         else painter.zoomOut();
+    }
+
+    public Point getPoint(MouseEvent e) {
+        return new Point(e.getY(), e.getX());
     }
 }
