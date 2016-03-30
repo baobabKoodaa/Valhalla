@@ -7,3 +7,6 @@ Päivä | Tunnit | Kuvaus
 28.03.2016      |    1h | Koodausta: karttapiirturin viilausta
 28.03.2016      |    7h | Suunnittelua: pelin ideointia
 29.03.2016      |   10h | Koodausta: gameloop, nanobots, worms
+30.03.2016      |    2h | Suunnittelua
+30.03.2016      |    1h | Koodausta
+30.03.2016      |    3h | Säätämistä työkalujen kanssa
