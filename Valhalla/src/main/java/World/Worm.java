@@ -23,8 +23,9 @@ public class Worm extends Organism {
     }
 
     @Override
-    public void takeDamage() {
-
+    public void takeDamage(Cell cell) {
+        dropTailUpTo(cell);
+        if (partsOfWorm.isEmpty()) this.alive = false;
     }
 
     @Override
@@ -36,20 +37,17 @@ public class Worm extends Organism {
         if (moveTo == null) {
             moveTo = getSomeCannibalizingMove();
             Limb limb = (Limb) moveTo.getTopElement();
-            if (limb.organism == this) cannibalizeUpToAndIncluding(moveTo);
+            if (limb.organism == this) dropTailUpTo(moveTo);
             else {
                 System.out.println("Killed a friendly. Check this works ok.");
-                limb.organism.alive = false;
-                /* TODO: Create remains */
-                /* TODO: Worms mauling worms */
+                limb.organism.takeDamage(moveTo);
             }
         }
         y = moveTo.y;
         x = moveTo.x;
         partsOfWorm.addLast(prev);
         partsOfWorm.addLast(moveTo);
-        if (map[y][x].hasFoodFor(getPlayer())) {
-            map[y][x].removeTopElement();
+        if (map[y][x].eatFoodAs(getPlayer())) {
             length++;
         }
         if (partsOfWorm.size() > length) {
@@ -77,7 +75,7 @@ public class Worm extends Organism {
         return null; /* Never returns null */
     }
 
-    private void cannibalizeUpToAndIncluding(Cell eatenCell) {
+    private void dropTailUpTo(Cell eatenCell) {
         for (int i=partsOfWorm.size()-1; i>=0; i--) {
             Cell tail = partsOfWorm.pollFirst();
             length--;
@@ -86,10 +84,6 @@ public class Worm extends Organism {
             if (tail == eatenCell) break;
         }
     }
-
-
-
-
 
     private void clearLineOfSight() {
         List<Cell> cellsInRange = getState().getCellsWithinRadius(y, x, nanobotLineOfSight);

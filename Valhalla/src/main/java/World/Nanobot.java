@@ -1,8 +1,7 @@
 package World;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.Random;
+
 import static Util.MagicNumbers.nanobotLineOfSight;
 import static Util.Utils.percentOfTime;
 
@@ -18,8 +17,10 @@ public class Nanobot extends Organism {
     }
 
     @Override
-    public void takeDamage() {
-
+    public void takeDamage(Cell cell) {
+        cell.removeTopElement();
+        cell.addElement(new Remains(getPlayer()));
+        this.alive = false;
     }
 
     @Override
@@ -33,8 +34,7 @@ public class Nanobot extends Organism {
         /* Set new cell */
         y = moveTo.y;
         x = moveTo.x;
-        if (map[y][x].hasFoodFor(getPlayer())) {
-            map[y][x].removeTopElement(); /* Eat food */
+        if (map[y][x].eatFoodAs(getPlayer())) {
             replicate();
         }
         map[y][x].addElement(head);

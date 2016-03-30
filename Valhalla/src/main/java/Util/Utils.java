@@ -1,6 +1,5 @@
 package Util;
 
-import World.Cell;
 import World.Terrain;
 
 import java.awt.*;
@@ -34,6 +33,14 @@ public class Utils {
         if (terrain.equals(DESERT)) return Color.PINK;
         if (terrain.equals(ATOMICSNOW)) return Color.WHITE;
         return Color.WHITE;
+    }
+
+    public static void tryToSleep(long sleepGoal) {
+        try {
+            Thread.sleep(sleepGoal);
+        } catch (InterruptedException e) {
+            /* If we can't get sleep, we will end up just busywaiting longer */
+        }
     }
 
 }

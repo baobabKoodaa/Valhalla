@@ -38,6 +38,6 @@ public abstract class Organism {
     }
 
     abstract public void physicalBirth(Cell birthPlace);
-    abstract public void takeDamage();
+    abstract public void takeDamage(Cell cell);
     abstract public void live(Cell[][] map);
 }

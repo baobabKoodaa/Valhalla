@@ -4,6 +4,8 @@ import GUI.View;
 import Util.Average;
 import World.State;
 
+import static Util.Utils.tryToSleep;
+
 public class GameLoop {
     State gameState;
     Long betweenUpdatesGoal;
@@ -22,6 +24,7 @@ public class GameLoop {
     public void start() {
         waitForNextUpdateTime();
         while (true) {
+            /* TODO: Wait some before updating game state, because user clicks will cause repaints too */
             updateGameState();
             waitForNextUpdateTime();
             askForRepaint();
@@ -42,9 +45,6 @@ public class GameLoop {
         prevUpdatePaintedTime = timeNow();
     }
 
-
-
-
     /* Waits with a combination of Thread.sleep and busywaiting */
     private void waitForNextUpdateTime() {
         long endTime = prevUpdatePaintedTime + betweenUpdatesGoal;
@@ -56,13 +56,6 @@ public class GameLoop {
         }
     }
 
-    private void tryToSleep(long sleepGoal) {
-        try {
-            Thread.sleep(sleepGoal);
-        } catch (InterruptedException e) {
-            /* If we can't get sleep, we will end up just busywaiting longer */
-        }
-    }
 
     private long timeNow() {
         return System.nanoTime() / 1000000;

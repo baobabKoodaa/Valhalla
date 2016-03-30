@@ -49,9 +49,22 @@ public class Cell {
         visible[player] = true;
     }
 
-    public boolean hasFoodFor(int player) {
+    /* Used in map generation to create clusters of food */
+    public boolean hasFood() {
         for (Element element : elements) {
-            if (element.canBeEatenBy(player)) return true;
+            if (element.canBeEatenBy(humanPlayer)) return true;
+        }
+        return false;
+    }
+
+    /* Returns true if food was available. Only eats 1 food. */
+    public boolean eatFoodAs(int player) {
+        for (int i=elements.size()-1; i>=0; i--) {
+            Element element = elements.get(i);
+            if (element.canBeEatenBy(player)) {
+                elements.remove(i);
+                return true;
+            }
         }
         return false;
     }

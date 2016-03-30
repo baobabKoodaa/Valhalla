@@ -9,6 +9,7 @@ import static Util.Utils.percentOfTime;
 import static World.Terrain.*;
 
 public class State {
+    public boolean updateInProgress;
     private Cell[][] map;
     private List<Organism> organismList;
     private int round;
@@ -47,16 +48,16 @@ public class State {
     /* We want clusters of food & individual spots */
     private boolean shouldHaveFood(int y, int x) {
         if (percentOfTime(1)) return true;
-        boolean northFood = (y > 0 && map[y-1][x].hasFoodFor(humanPlayer));
-        boolean westFood = (x > 0 && map[y][x-1].hasFoodFor(humanPlayer));
+        boolean northFood = (y > 0 && map[y-1][x].hasFood());
+        boolean westFood = (x > 0 && map[y][x-1].hasFood());
         //if (northFood && westFood) return percentOfTime(90);
         if (northFood || westFood) return percentOfTime(40);
         return false;
     }
 
     public void stepAhead() {
+        updateInProgress = true;
         round++;
-        /* TODO: Block repainting while update is in progress */
         for (int i=organismList.size()-1; i>=0; i--) {
             Organism organism = organismList.get(i);
             /* Because of combats an organism may have acted already */
@@ -67,8 +68,8 @@ public class State {
             }
             organism.live(map);
             organism.setRoundOfLatestAction(round);
-            /* TODO: Jos organismi kuolee, pitää hypätä listalla taaksepäin */
         }
+        updateInProgress = false;
     }
 
     public boolean actedAlreadyThisRound(Organism organism) {

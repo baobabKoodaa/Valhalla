@@ -9,6 +9,7 @@ import java.awt.*;
 import static Util.MagicNumbers.HEAD_MARKER_COLOR;
 import static Util.MagicNumbers.humanPlayer;
 import static Util.Utils.getColorForTerrain;
+import static Util.Utils.tryToSleep;
 
 public class Painter extends JPanel {
     public boolean dontTouchThePaint;
@@ -37,6 +38,10 @@ public class Painter extends JPanel {
 
     @Override
     public void paintComponent(Graphics g) {
+        while (state.updateInProgress) {
+            tryToSleep(1L);
+        }
+        dontTouchThePaint = true; /* Should be set also everywhere that repaint is asked */
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
 
