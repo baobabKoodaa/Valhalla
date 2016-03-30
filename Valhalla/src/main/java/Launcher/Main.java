@@ -1,7 +1,7 @@
 package Launcher;
 
 import GUI.View;
-import Logic.GameLoop;
+import Controller.GameLoop;
 import World.State;
 
 public class Main {

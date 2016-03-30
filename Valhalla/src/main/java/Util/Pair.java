@@ -1,10 +1,10 @@
 package Util;
 
-public class Point {
+public class Pair {
     public int y;
     public int x;
 
-    public Point(int y, int x) {
+    public Pair(int y, int x) {
         this.y = y;
         this.x = x;
     }
@@ -12,7 +12,7 @@ public class Point {
     @Override
     public boolean equals(Object o) {
         if (o == null || this.getClass() != o.getClass()) return false;
-        Point other = (Point) o;
+        Pair other = (Pair) o;
         return (this.x == other.x && this.y == other.y);
     }
 

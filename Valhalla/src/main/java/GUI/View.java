@@ -7,7 +7,7 @@ import java.awt.*;
 
 public class View {
     private JFrame frame;
-    private Painter painter;
+    public Painter painter;
 
     public View(State state) {
         int height = 1200;

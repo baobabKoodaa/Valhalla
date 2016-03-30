@@ -5,10 +5,11 @@ import java.awt.*;
 public class Food extends Element {
 
     public Food() {
+        super.setColor(Color.GRAY);
     }
 
     @Override
-    public Color getColor() {
-        return Color.GRAY;
+    public boolean canBeEatenBy(int player) {
+        return true;
     }
 }

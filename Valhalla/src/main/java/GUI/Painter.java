@@ -1,24 +1,25 @@
 package GUI;
 
-import Util.Point;
+import Util.Pair;
 import World.*;
 
 import javax.swing.*;
 import java.awt.*;
 
-import static World.Terrain.ATOMICSNOW;
-import static World.Terrain.DESERT;
-import static World.Terrain.GRASS;
+import static Util.MagicNumbers.HEAD_MARKER_COLOR;
+import static Util.MagicNumbers.humanPlayer;
+import static Util.Utils.getColorForTerrain;
 
 public class Painter extends JPanel {
+    public boolean dontTouchThePaint;
     private State state;
-    private int zoom; /* Square side length in pixels */
+    private int cellSideLength;
     private double offsetY;
     private double offsetX;
     private int viewHeight;
     private int viewWidth;
 
-    private Point selectedSq;
+    private Pair selectedSq;
 
     public Painter(State state, int width, int height) {
         this.state = state;
@@ -26,7 +27,7 @@ public class Painter extends JPanel {
         this.viewHeight = height;
         this.setPreferredSize(new Dimension(width, height));
         this.setBackground(Color.white);
-        this.zoom = 50;
+        this.cellSideLength = 50;
         InputListener inputListener = new InputListener(this);
         addMouseListener(inputListener);
         addMouseMotionListener(inputListener);
@@ -39,77 +40,81 @@ public class Painter extends JPanel {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
 
-
-        int width = zoom;
-        int height = zoom;
-        Square[][] map = state.getMap();
-        int topY = (int)offsetY/zoom;
-        int leftX = (int)offsetX/zoom;
-        int bottomY = 1 + topY + (int) Math.ceil(viewHeight / zoom);
-        int rightX = 1 + leftX + (int) Math.ceil(viewWidth / zoom);
+        Cell[][] map = state.getMap();
+        int topY = (int)offsetY/ cellSideLength;
+        int leftX = (int)offsetX/ cellSideLength;
+        int bottomY = 1 + topY + (int) Math.ceil(viewHeight / cellSideLength);
+        int rightX = 1 + leftX + (int) Math.ceil(viewWidth / cellSideLength);
         while (bottomY >= map.length) bottomY--;
         while (rightX >= map[bottomY].length) rightX--;
 
-        int viewY = - (int)offsetY % zoom;
-        for (int y=topY; y<=bottomY; y++, viewY+=height) {
-            int viewX = - (int)offsetX % zoom;
-            for (int x=leftX; x<=rightX; x++, viewX+=width) {
-                Square sq = map[y][x];
-
-                /* Draw terrain */
-                g2d.setColor(getColor(sq.getTerrain()));
-                g2d.fillRect(viewX, viewY, width, height);
-
-                /* Draw elements */
-                for (Element elem : sq.getElements()) {
-                    g2d.setColor(elem.getColor());
-                    g2d.fillRect(viewX, viewY, width, height);
-                }
-
-                /* Draw grid */
-                g2d.setColor(Color.LIGHT_GRAY);
-                g2d.drawRect(viewX, viewY, width, height);
+        int viewY = - (int)offsetY % cellSideLength;
+        for (int y=topY; y<=bottomY; y++, viewY+=cellSideLength) {
+            int viewX = - (int)offsetX % cellSideLength;
+            for (int x=leftX; x<=rightX; x++, viewX+=cellSideLength) {
+                Cell cell = map[y][x];
+                if (cell.isVisibleTo(humanPlayer)) drawCell(g2d, cell, viewY, viewX);
+                else drawUndiscoveredArea(g2d, viewY, viewX);
             }
         }
         /* Draw selection */
         if (selectedSq != null) {
-            viewY = - (int)offsetY % zoom + (selectedSq.y - topY) * height;
-            int viewX = - (int)offsetX % zoom + (selectedSq.x - leftX) * width;
+            viewY = - (int)offsetY % cellSideLength + (selectedSq.y - topY) * cellSideLength;
+            int viewX = - (int)offsetX % cellSideLength + (selectedSq.x - leftX) * cellSideLength;
             g2d.setColor(Color.YELLOW);
-            g2d.drawRect(viewX, viewY, width, height);
+            g2d.drawRect(viewX, viewY, cellSideLength, cellSideLength);
         }
+        dontTouchThePaint = false; /* Concurrency related flag */
     }
 
-    public Color getColor(Terrain terrain) {
-        if (terrain.equals(GRASS)) return Color.GREEN;
-        if (terrain.equals(DESERT)) return Color.PINK;
-        if (terrain.equals(ATOMICSNOW)) return Color.WHITE;
-        return Color.WHITE;
+    public void drawCell(Graphics2D g2d, Cell cell, int viewY, int viewX) {
+        /* Draw terrain */
+        g2d.setColor(getColorForTerrain(cell.getTerrain()));
+        g2d.fillRect(viewX, viewY, cellSideLength, cellSideLength);
+        /* Draw element */
+        if (cell.getTopElement() != null) {
+            g2d.setColor(cell.getTopElement().getColor());
+            g2d.fillRect(viewX, viewY, cellSideLength, cellSideLength);
+            if (cell.getTopElement().paintAsHead()) {
+                g2d.setColor(HEAD_MARKER_COLOR);
+                int halvedSide = cellSideLength/2;
+                int x = viewX + cellSideLength/4;
+                int y = viewY + cellSideLength/4;
+                g2d.fillRect(x, y, halvedSide, halvedSide);
+            }
+        }
+        /* Draw grid */
+        g2d.setColor(Color.LIGHT_GRAY);
+        g2d.drawRect(viewX, viewY, cellSideLength, cellSideLength);
     }
 
-    public void userClickedOn(Point point) {
+    public void drawUndiscoveredArea(Graphics2D g2d, int viewY, int viewX) {
+        g2d.setColor(Color.BLACK);
+        g2d.fillRect(viewX, viewY, cellSideLength, cellSideLength);
+    }
+
+    public void userClickedOn(Pair point) {
         int mapX = getMapXFromView(point.x);
         int mapY = getMapYFromView(point.y);
-        System.out.println("Actual click " + mapX +"," + mapY);
         if (selectedSq != null) selectedSq = null;
-        else selectedSq = new Point(mapY, mapX);
+        else selectedSq = new Pair(mapY, mapX);
         repaint();
     }
 
     public void zoomIn() {
-        int newZoom = (int) Math.round(1.1 * this.zoom);
+        int newZoom = (int) Math.round(1.1 * this.cellSideLength);
         applyZoom(newZoom);
     }
 
     public void zoomOut() {
-        if (this.zoom * state.getMap().length < viewHeight) return;
-        int newZoom = (int) Math.round(this.zoom / 1.1);
+        if (this.cellSideLength * state.getMap().length < viewHeight) return;
+        int newZoom = (int) Math.round(this.cellSideLength / 1.1);
         applyZoom(newZoom);
     }
 
     public void applyZoom(int newZoom) {
-        int prevZoom = this.zoom;
-        this.zoom = newZoom;
+        int prevZoom = this.cellSideLength;
+        this.cellSideLength = newZoom;
         double change = 1.0 * prevZoom / newZoom;
         this.offsetY /= change;
         this.offsetX /= change;
@@ -147,11 +152,11 @@ public class Painter extends JPanel {
     }
 
     public int getMapXFromView(int viewX) {
-        return (int)(offsetX+viewX)/zoom;
+        return (int)(offsetX+viewX)/ cellSideLength;
     }
 
     public int getMapYFromView(int viewY) {
-        return (int)(offsetY+viewY)/zoom;
+        return (int)(offsetY+viewY)/ cellSideLength;
     }
 
 }
