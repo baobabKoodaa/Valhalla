@@ -8,4 +8,4 @@ Runko vuoropohjaiselle strategiapelille, jonka maailma esitetään ruuduista koo
 
 [tuntikirjanpito](dokumentointi/tuntikirjanpito.md)
 
-![Luokkakaavio](/dokumentaatio/luokkaKaavio.jpg "Luokkakaavio")
+![Luokkakaavio](/dokumentaatio/luokkaKaavio.png "Luokkakaavio")
