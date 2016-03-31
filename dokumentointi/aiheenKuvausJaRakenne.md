@@ -1,4 +1,4 @@
-# Valhalla
+# Viikon 1 aihemäärittely
 
 **Aihe:** Runko vuoropohjaiselle strategiapelille, jonka maailma esitetään ruuduista koostuvana karttana.
 
@@ -10,3 +10,9 @@
 - Päänäkymän "liikuttaminen" hiirellä hilaamalla portaattomasti
 - Ruudun valitseminen klikkaamalla päänäkymästä (esim. yksikön liikuttamista varten)
 - Työkalupalkkien klikkaaminen (esim. vuoron päättäminen painamalla tiimalasia esittävää kuvaa)
+
+# Viikon 2 lisäyksiä
+
+- Reaaliaikainen gamelooppi
+- Tekoälyllä liikkuvat organismit, joista toistaiseksi toteutettu Nanobot ja Worm.
+- Tällä hetkellä ohjelma pyörii simulaationa, jossa organismit syövät kartalta löytyvää ruokaa ja monistautuvat tai kasvavat lajikkeesta riippuen.
