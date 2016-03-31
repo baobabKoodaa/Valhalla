@@ -1,12 +1,12 @@
-package World;
+package world;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static Util.MagicNumbers.humanPlayer;
-import static Util.Utils.percentOfTime;
-import static World.Terrain.*;
+import static util.MagicNumbers.HUMAN_PLAYER;
+import static util.Utils.percentOfTime;
+import static world.Terrain.*;
 
 public class State {
     public boolean updateInProgress;
@@ -21,20 +21,22 @@ public class State {
         /* Generates arbitrary map for testing purposes */
         int size = 500;
         map = new Cell[size][size];
-        for (int y=0; y<map.length; y++) {
-            for (int x=0; x<map[y].length; x++) {
+        for (int y = 0; y < map.length; y++) {
+            for (int x = 0; x < map[y].length; x++) {
                 Terrain terrain = ATOMICSNOW;
-                Cell sq = new Cell(y,x,terrain);
+                Cell sq = new Cell(y, x, terrain);
                 map[y][x] = sq;
-                if (shouldHaveFood(y,x)) sq.addElement(new Food());
+                if (shouldHaveFood(y, x)) {
+                    sq.addElement(new Food());
+                }
             }
         }
 
-        placeOrganism(new Nanobot(), humanPlayer, map[10][10]);
-        placeOrganism(new Worm(), humanPlayer, map[20][20]);
-        placeOrganism(new Worm(), humanPlayer, map[200][200]);
-        placeOrganism(new Worm(), humanPlayer, map[400][400]);
-        placeOrganism(new Worm(), humanPlayer, map[300][300]);
+        placeOrganism(new Nanobot(), HUMAN_PLAYER, map[10][10]);
+        placeOrganism(new Worm(), HUMAN_PLAYER, map[20][20]);
+        placeOrganism(new Worm(), HUMAN_PLAYER, map[200][200]);
+        placeOrganism(new Worm(), HUMAN_PLAYER, map[400][400]);
+        placeOrganism(new Worm(), HUMAN_PLAYER, map[300][300]);
     }
 
     public void placeOrganism(Organism o, int player, Cell cell) {
@@ -47,21 +49,27 @@ public class State {
 
     /* We want clusters of food & individual spots */
     private boolean shouldHaveFood(int y, int x) {
-        if (percentOfTime(1)) return true;
-        boolean northFood = (y > 0 && map[y-1][x].hasFood());
-        boolean westFood = (x > 0 && map[y][x-1].hasFood());
+        if (percentOfTime(1)) {
+            return true;
+        }
+        boolean northFood = (y > 0 && map[y - 1][x].hasFood());
+        boolean westFood = (x > 0 && map[y][x - 1].hasFood());
         //if (northFood && westFood) return percentOfTime(90);
-        if (northFood || westFood) return percentOfTime(40);
+        if (northFood || westFood) {
+            return percentOfTime(40);
+        }
         return false;
     }
 
     public void stepAhead() {
         updateInProgress = true;
         round++;
-        for (int i=organismList.size()-1; i>=0; i--) {
+        for (int i = organismList.size() - 1; i >= 0; i--) {
             Organism organism = organismList.get(i);
             /* Because of combats an organism may have acted already */
-            if (actedAlreadyThisRound(organism)) continue;
+            if (actedAlreadyThisRound(organism)) {
+                continue;
+            }
             if (!organism.alive) {
                 organismList.remove(i);
                 continue;
@@ -85,7 +93,9 @@ public class State {
         List<Cell> options = getNeighboursWithinRadius(y, x, 1);
         Collections.shuffle(options);
         for (Cell cell : options) {
-            if (cell.x != x && cell.y != y) continue; /* Diagonal */
+            if (cell.x != x && cell.y != y) {
+                continue; /* Diagonal */
+            }
             return cell;
         }
         return null; /* Never returns null */
@@ -96,8 +106,12 @@ public class State {
         List<Cell> options = getNeighboursWithinRadius(y, x, 1);
         Collections.shuffle(options);
         for (Cell cell : options) {
-            if (cell.x != x && cell.y != y) continue; /* Diagonal */
-            if (cell.isEmpty()) return cell;
+            if (cell.x != x && cell.y != y) {
+                continue; /* Diagonal */
+            }
+            if (cell.isEmpty()) {
+                return cell;
+            }
         }
         return null;
     }
@@ -107,19 +121,29 @@ public class State {
         List<Cell> options = getNeighboursWithinRadius(y, x, 1);
         Collections.shuffle(options);
         for (Cell cell : options) {
-            if (cell.x != x && cell.y != y) continue; /* Diagonal */
-            if (!cell.hasLimbOf(player)) return cell;
+            if (cell.x != x && cell.y != y) {
+                continue; /* Diagonal */
+            }
+            if (!cell.hasLimbOf(player)) {
+                return cell;
+            }
         }
         return null;
     }
 
     public List<Cell> getNeighboursWithinRadius(int centerY, int centerX, int radius) {
         List<Cell> list = new ArrayList<>();
-        for (int y=centerY-radius; y<=centerY+radius; y++) {
-            for (int x=centerX-radius; x<=centerX+radius; x++) {
-                if (y < 0 || x < 0) continue;
-                if (y >= map.length || x >= map[y].length) continue;
-                if (y == centerY && x == centerX) continue;
+        for (int y = centerY - radius; y <= centerY + radius; y++) {
+            for (int x = centerX - radius; x <= centerX + radius; x++) {
+                if (y < 0 || x < 0) {
+                    continue;
+                }
+                if (y >= map.length || x >= map[y].length) {
+                    continue;
+                }
+                if (y == centerY && x == centerX) {
+                    continue;
+                }
                 list.add(map[y][x]);
             }
         }

@@ -1,15 +1,15 @@
-package GUI;
+package gui;
 
-import Util.Pair;
-import World.*;
+import util.Pair;
+import world.*;
 
 import javax.swing.*;
 import java.awt.*;
 
-import static Util.MagicNumbers.HEAD_MARKER_COLOR;
-import static Util.MagicNumbers.humanPlayer;
-import static Util.Utils.getColorForTerrain;
-import static Util.Utils.tryToSleep;
+import static util.MagicNumbers.HEAD_MARKER_COLOR;
+import static util.MagicNumbers.HUMAN_PLAYER;
+import static util.Utils.getColorForTerrain;
+import static util.Utils.tryToSleep;
 
 public class Painter extends JPanel {
     public boolean dontTouchThePaint;
@@ -58,7 +58,7 @@ public class Painter extends JPanel {
             int viewX = - (int)offsetX % cellSideLength;
             for (int x=leftX; x<=rightX; x++, viewX+=cellSideLength) {
                 Cell cell = map[y][x];
-                if (cell.isVisibleTo(humanPlayer)) drawCell(g2d, cell, viewY, viewX);
+                if (cell.isVisibleTo(HUMAN_PLAYER)) drawCell(g2d, cell, viewY, viewX);
                 else drawUndiscoveredArea(g2d, viewY, viewX);
             }
         }

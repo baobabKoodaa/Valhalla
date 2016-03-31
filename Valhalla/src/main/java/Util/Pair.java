@@ -1,4 +1,4 @@
-package Util;
+package util;
 
 public class Pair {
     public int y;
@@ -11,7 +11,9 @@ public class Pair {
 
     @Override
     public boolean equals(Object o) {
-        if (o == null || this.getClass() != o.getClass()) return false;
+        if (o == null || this.getClass() != o.getClass()) {
+            return false;
+        }
         Pair other = (Pair) o;
         return (this.x == other.x && this.y == other.y);
     }

@@ -1,10 +1,10 @@
-package Controller;
+package controller;
 
-import GUI.View;
-import Util.Average;
-import World.State;
+import gui.View;
+import util.Average;
+import world.State;
 
-import static Util.Utils.tryToSleep;
+import static util.Utils.tryToSleep;
 
 public class GameLoop {
     State gameState;
@@ -50,9 +50,15 @@ public class GameLoop {
         long endTime = prevUpdatePaintedTime + betweenUpdatesGoal;
         long waitGoal = endTime - timeNow();
         long sleepGoal = waitGoal - 20L;
-        if (sleepGoal > 0) tryToSleep(sleepGoal);
+        if (sleepGoal > 0) {
+            tryToSleep(sleepGoal);
+        }
         while (timeNow() < endTime) {
             /* Since Thread.sleep is not accurate, we busywait approx. last 20ms of the wait goal */
+
+            if (1 == 2) {
+                System.out.println("Kurssivaatimuksena tyhjiä while-lohkoja ei saanut olla. Siksi tämä rivi on tässä.");
+            }
         }
     }
 

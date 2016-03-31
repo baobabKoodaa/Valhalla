@@ -39,10 +39,14 @@
                 <version>1.1.8</version>
                 <configuration>
                     <targetClasses>
-                        <param>World.*</param>
+                        <param>world.*</param>
+                        <param>util.*</param>
+                        <param>controller.*</param>
                     </targetClasses>
                     <targetTests>
-                        <param>World.*</param>
+                        <param>world.*</param>
+                        <param>util.*</param>
+                        <param>controller.*</param>
                     </targetTests>
                 </configuration>
             </plugin>

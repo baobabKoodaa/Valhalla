@@ -1,8 +1,8 @@
-package Launcher;
+package launcher;
 
-import GUI.View;
-import Controller.GameLoop;
-import World.State;
+import gui.View;
+import controller.GameLoop;
+import world.State;
 
 public class Main {
 

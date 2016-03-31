@@ -1,4 +1,4 @@
-package Util;
+package util;
 
 public class Average {
     private long sum;
@@ -15,7 +15,9 @@ public class Average {
     }
 
     public double getAverage() {
-        if (count==0) return 0;
+        if (count == 0) {
+            return 0;
+        }
         return 1.0 * sum / count;
     }
 

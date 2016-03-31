@@ -1,8 +1,8 @@
-package World;
+package world;
 
 import java.util.*;
 
-import static Util.MagicNumbers.nanobotLineOfSight;
+import static util.MagicNumbers.NANOBOT_LINE_OF_SIGHT;
 
 public class Worm extends Organism {
     Deque<Cell> partsOfWorm;
@@ -25,7 +25,9 @@ public class Worm extends Organism {
     @Override
     public void takeDamage(Cell cell) {
         dropTailUpTo(cell);
-        if (partsOfWorm.isEmpty()) this.alive = false;
+        if (partsOfWorm.isEmpty()) {
+            this.alive = false;
+        }
     }
 
     @Override
@@ -37,8 +39,9 @@ public class Worm extends Organism {
         if (moveTo == null) {
             moveTo = getSomeCannibalizingMove();
             Limb limb = (Limb) moveTo.getTopElement();
-            if (limb.organism == this) dropTailUpTo(moveTo);
-            else {
+            if (limb.organism == this) {
+                dropTailUpTo(moveTo);
+            } else {
                 System.out.println("Killed a friendly. Check this works ok.");
                 limb.organism.takeDamage(moveTo);
             }
@@ -64,7 +67,9 @@ public class Worm extends Organism {
         List<Cell> neighbors = getState().getNeighboursWithinRadius(y, x, 1);
         Collections.shuffle(neighbors);
         for (Cell neighbor : neighbors) {
-            if (neighbor.y != y && neighbor.x != x) continue; /* Diagonals are not ok */
+            if (neighbor.y != y && neighbor.x != x) {
+                continue; /* Diagonals are not ok */
+            }
             /* Head has been temporarily polled from partsOfWorm to reveal neck */
             if (!partsOfWorm.isEmpty() && neighbor == partsOfWorm.peekLast()) {
                 /* To stop worms from doing 180¤ */
@@ -76,17 +81,19 @@ public class Worm extends Organism {
     }
 
     private void dropTailUpTo(Cell eatenCell) {
-        for (int i=partsOfWorm.size()-1; i>=0; i--) {
+        for (int i = partsOfWorm.size() - 1; i >= 0; i--) {
             Cell tail = partsOfWorm.pollFirst();
             length--;
             tail.removeTopElement();
             tail.addElement(new Remains(getPlayer()));
-            if (tail == eatenCell) break;
+            if (tail == eatenCell) {
+                break;
+            }
         }
     }
 
     private void clearLineOfSight() {
-        List<Cell> cellsInRange = getState().getCellsWithinRadius(y, x, nanobotLineOfSight);
+        List<Cell> cellsInRange = getState().getCellsWithinRadius(y, x, NANOBOT_LINE_OF_SIGHT);
         for (Cell cell : cellsInRange) {
             cell.setVisibleTo(getPlayer());
         }

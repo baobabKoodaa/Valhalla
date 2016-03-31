@@ -1,8 +1,8 @@
-package World;
+package world;
 
 import java.awt.*;
 
-import static Util.Utils.getColorForPlayer;
+import static util.Utils.getColorForPlayer;
 
 public class Limb extends Element {
     Organism organism;

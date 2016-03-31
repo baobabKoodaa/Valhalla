@@ -1,9 +1,9 @@
-package World;
+package world;
 
 import java.util.List;
 
-import static Util.MagicNumbers.nanobotLineOfSight;
-import static Util.Utils.percentOfTime;
+import static util.MagicNumbers.NANOBOT_LINE_OF_SIGHT;
+import static util.Utils.percentOfTime;
 
 public class Nanobot extends Organism {
 
@@ -25,10 +25,14 @@ public class Nanobot extends Organism {
 
     @Override
     public void live(Cell[][] map) {
-        if (percentOfTime(50)) return;
+        if (percentOfTime(50)) {
+            return;
+        }
         Limb head = (Limb) map[y][x].getTopElement(); /* TODO: Same, but typesafe */
         Cell moveTo = getState().getRandomAdjacentNonFriendlyCell(y, x, getPlayer());
-        if (moveTo == null) return;
+        if (moveTo == null) {
+            return;
+        }
         /* Clear previous cell */
         map[y][x].removeTopElement();
         /* Set new cell */
@@ -43,12 +47,14 @@ public class Nanobot extends Organism {
 
     private void replicate() {
         Cell birthPlace = getState().getRandomAdjacentEmptyCell(y, x);
-        if (birthPlace == null) return;
+        if (birthPlace == null) {
+            return;
+        }
         getState().placeOrganism(new Nanobot(), getPlayer(), birthPlace);
     }
 
     private void clearLineOfSight() {
-        List<Cell> cellsInRange = getState().getCellsWithinRadius(y, x, nanobotLineOfSight);
+        List<Cell> cellsInRange = getState().getCellsWithinRadius(y, x, NANOBOT_LINE_OF_SIGHT);
         for (Cell cell : cellsInRange) {
             cell.setVisibleTo(getPlayer());
         }

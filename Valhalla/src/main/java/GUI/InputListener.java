@@ -1,6 +1,6 @@
-package GUI;
+package gui;
 
-import Util.Pair;
+import util.Pair;
 
 import java.awt.event.*;
 

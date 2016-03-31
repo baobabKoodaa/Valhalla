@@ -1,8 +1,8 @@
-package World;
+package world;
 
 import java.awt.*;
 
-import static Util.Utils.*;
+import static util.Utils.*;
 
 public class Remains extends Food {
     int player;

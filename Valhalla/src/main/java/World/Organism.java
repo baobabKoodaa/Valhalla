@@ -1,4 +1,4 @@
-package World;
+package world;
 
 public abstract class Organism {
     public boolean alive;

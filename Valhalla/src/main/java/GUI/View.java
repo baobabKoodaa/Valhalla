@@ -1,9 +1,8 @@
-package GUI;
+package gui;
 
-import World.State;
+import world.State;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class View {
     private JFrame frame;

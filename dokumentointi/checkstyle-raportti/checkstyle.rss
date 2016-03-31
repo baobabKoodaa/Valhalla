@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<rss version="0.91">
+  <channel>
+    <title>Valhalla - Checkstyle report</title>
+    <link>${project.url}</link>
+    <description>Valhalla - Checkstyle report</description>
+    <language>en-us</language>
+    <copyright>&#169;2016</copyright>
+    <item>
+      <title>File: 19,
+             Errors: 0,
+             Warnings: 0,
+             Infos: 0
+      </title>
+            <link>${project.url}/checkstyle.html</link>
+      <description>
+        <p>Click <a href="${project.url}/checkstyle.html">here</a> for the full Checkstyle report.</p>
+
+        <table summary="Files" boder="1">
+          <thead>
+            <tr>
+              <th>Files</th>
+              <th style="width:30px;"><abbr title="Info">I</abbr></th>
+              <th style="width:30px;"><abbr title="Warning">W</abbr></th>
+              <th style="width:30px;"><abbr title="Error">E</abbr></th>
+            </tr>
+          </thead>
+          <tbody>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#launcher.Main.java">launcher/Main.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#world.Remains.java">world/Remains.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#world.Food.java">world/Food.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#controller.GameLoop.java">controller/GameLoop.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#util.Utils.java">util/Utils.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#gui.Painter.java">gui/Painter.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#world.Element.java">world/Element.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#world.Worm.java">world/Worm.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#gui.InputListener.java">gui/InputListener.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#world.Limb.java">world/Limb.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#util.MagicNumbers.java">util/MagicNumbers.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#world.Terrain.java">world/Terrain.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#util.Average.java">util/Average.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#world.Nanobot.java">world/Nanobot.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#world.Cell.java">world/Cell.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#world.State.java">world/State.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#util.Pair.java">util/Pair.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#world.Organism.java">world/Organism.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#gui.View.java">gui/View.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                      </tbody>
+        </table>
+        
+      </description>
+    </item>
+  </channel>
+</rss>
+

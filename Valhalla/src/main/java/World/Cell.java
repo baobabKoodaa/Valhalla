@@ -1,9 +1,9 @@
-package World;
+package world;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static Util.MagicNumbers.*;
+import static util.MagicNumbers.*;
 
 public class Cell {
     public int y;
@@ -16,7 +16,7 @@ public class Cell {
         this.y = y;
         this.x = x;
         this.terrain = terrain;
-        this.visible = new boolean[maxPlayers+1];
+        this.visible = new boolean[MAX_PLAYERS + 1];
         this.elements = new ArrayList<>();
     }
 
@@ -25,12 +25,14 @@ public class Cell {
     }
 
     public Element getTopElement() {
-        if (isEmpty()) return null;
-        return elements.get(elements.size()-1);
+        if (isEmpty()) {
+            return null;
+        }
+        return elements.get(elements.size() - 1);
     }
 
     public void removeTopElement() {
-        elements.remove(elements.size()-1);
+        elements.remove(elements.size() - 1);
     }
 
     public boolean isEmpty() {
@@ -52,14 +54,16 @@ public class Cell {
     /* Used in map generation to create clusters of food */
     public boolean hasFood() {
         for (Element element : elements) {
-            if (element.canBeEatenBy(humanPlayer)) return true;
+            if (element.canBeEatenBy(HUMAN_PLAYER)) {
+                return true;
+            }
         }
         return false;
     }
 
     /* Returns true if food was available. Only eats 1 food. */
     public boolean eatFoodAs(int player) {
-        for (int i=elements.size()-1; i>=0; i--) {
+        for (int i = elements.size() - 1; i >= 0; i--) {
             Element element = elements.get(i);
             if (element.canBeEatenBy(player)) {
                 elements.remove(i);
@@ -70,8 +74,12 @@ public class Cell {
     }
 
     public boolean hasLimbOf(int player) {
-        if (isEmpty()) return false;
-        if (getTopElement().getClass() != Limb.class) return false;
+        if (isEmpty()) {
+            return false;
+        }
+        if (getTopElement().getClass() != Limb.class) {
+            return false;
+        }
         Limb limb = (Limb) getTopElement();
         Organism o = limb.organism;
         return (o.getPlayer() == player);
