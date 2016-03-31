@@ -7,3 +7,5 @@ Runko vuoropohjaiselle strategiapelille, jonka maailma esitetään ruuduista koo
 [aiheen kuvaus](dokumentointi/aiheenKuvausJaRakenne.md)
 
 [tuntikirjanpito](dokumentointi/tuntikirjanpito.md)
+
+![Luokkakaavio](/dokumentaatio/luokkaKaavio.jpg "Luokkakaavio")
