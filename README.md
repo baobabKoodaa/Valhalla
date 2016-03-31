@@ -1,6 +1,8 @@
-# Valhalla
+# Codename:Valhalla
 
-Runko vuoropohjaiselle strategiapelille, jonka maailma esitetään ruuduista koostuvana karttana.
+Taistelu robottien herruudesta ydinsodan tuhoamien raunioiden keskellä.
+
+Reaaliaikainen peli/simulaatio, jonka maailma esitetään ylhäältä päin kuvattuna 2d-ruudukkona.
 
 ### Dokumentaatio
 
