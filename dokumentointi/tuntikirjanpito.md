@@ -11,3 +11,4 @@ Päivä | Tunnit | Kuvaus
 30.03.2016      |    1h | Koodausta
 30.03.2016      |    3h | Säätämistä työkalujen kanssa
 31.03.2016      |    2h | Testausta: JUnit, PIT, Checkstyle
+01.04.2016      |    2h | Suunnittelua
