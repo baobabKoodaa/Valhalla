@@ -13,4 +13,4 @@ Päivä | Tunnit | Kuvaus
 31.03.2016      |    2h | Testausta: JUnit, PIT, Checkstyle
 01.04.2016      |    2h | Suunnittelua
 03.04.2016      |    3h | Koodausta: kohdistettu zoomi ilman pyöristysvirheitä
-04.04.2016      |    3h | Koodausta: mediapainikkeet
+04.04.2016      |    5h | Koodausta: ButtonMapper, GUI:n refaktorointia
