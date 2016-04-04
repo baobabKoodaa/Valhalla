@@ -2,16 +2,17 @@ package gui;
 
 import util.Pair;
 
+import javax.swing.*;
 import java.awt.event.*;
 
 public class InputListener implements ActionListener, MouseListener, MouseMotionListener, MouseWheelListener {
 
     private Pair lastDrag;
     private Pair lastPress;
-    private Painter painter;
+    private View view;
 
-    public InputListener(Painter painter) {
-        this.painter = painter;
+    public InputListener(View view) {
+        this.view = view;
     }
 
     @Override
@@ -37,7 +38,7 @@ public class InputListener implements ActionListener, MouseListener, MouseMotion
     public void mouseReleased(MouseEvent e) {
         Pair point = getPoint(e);
         if (point.equals(lastPress)) {
-            painter.userClickedOn(point);
+            view.userClickedOn(point);
         }
     }
 
@@ -57,7 +58,7 @@ public class InputListener implements ActionListener, MouseListener, MouseMotion
         int offsetChangeX = lastDrag.x - point.x;
         int offsetChangeY = lastDrag.y - point.y;
         lastDrag = point;
-        painter.mouseDragged(offsetChangeX, offsetChangeY);
+        view.mouseDragged(offsetChangeX, offsetChangeY);
     }
 
     @Override
@@ -67,8 +68,9 @@ public class InputListener implements ActionListener, MouseListener, MouseMotion
 
     @Override
     public void mouseWheelMoved(MouseWheelEvent e) {
-        if (e.getWheelRotation() < 0) painter.zoomIn();
-        else painter.zoomOut();
+        Pair point = getPoint(e);
+        if (e.getWheelRotation() < 0) view.zoomIn(point);
+        else view.zoomOut(point);
     }
 
     public Pair getPoint(MouseEvent e) {

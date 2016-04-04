@@ -10,6 +10,7 @@ public class Main {
         State gameState = new State();
         View view = new View(gameState);
         GameLoop loop = new GameLoop(gameState, view);
+        view.setGameLoop(loop);
         loop.start();
     }
 }

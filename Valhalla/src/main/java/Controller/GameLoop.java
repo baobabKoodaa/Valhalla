@@ -4,50 +4,91 @@ import gui.View;
 import util.Average;
 import world.State;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static util.Utils.tryToSleep;
 
 public class GameLoop {
     State gameState;
-    Long betweenUpdatesGoal;
     Average updateTimes;
     long prevUpdatePaintedTime;
+    long lastUpdateBurnedTime;
+    long currentSpeed; /* Goal how many ms between updates */
+    int indexForCurrentSpeed;
+    List<Long> speedOptions;
     View view;
 
     public GameLoop(State gameState, View view) {
         this.gameState = gameState;
-        betweenUpdatesGoal = 200L;
+        initializeSpeeds();
         updateTimes = new Average();
         prevUpdatePaintedTime = timeNow();
         this.view = view;
     }
 
+    public void initializeSpeeds() {
+        this.speedOptions = new ArrayList<Long>();
+        for (long i = 5; i <= 3000; i *= 1.5) {
+            speedOptions.add(i);
+        }
+        this.indexForCurrentSpeed = 9;  // about 190ms
+        this.currentSpeed = speedOptions.get(indexForCurrentSpeed);
+    }
+
+    public void faster() {
+        if (indexForCurrentSpeed == 0) {
+            return;
+        }
+        indexForCurrentSpeed--;
+        currentSpeed = speedOptions.get(indexForCurrentSpeed);
+    }
+
+    public void slower() {
+        if (indexForCurrentSpeed == speedOptions.size()) {
+            return;
+        }
+        indexForCurrentSpeed++;
+        currentSpeed = speedOptions.get(indexForCurrentSpeed);
+    }
+
     public void start() {
         waitForNextUpdateTime();
         while (true) {
-            /* TODO: Wait some before updating game state, because user clicks will cause repaints too */
+            waitBeforeUpdating(); /* User clicks will cause repaints too, so we don't want to update too early */
             updateGameState();
-            waitForNextUpdateTime();
+            waitForNextUpdateTime(); /* We don't want to draw too early */
             askForRepaint();
-            waitUntilPaintIsDry();
+            waitUntilPaintIsDry(); /*  */
         }
     }
 
-    /* Threaded repaint was causing concurrency related errors */
+    /* Protection against concurrency related repaint errors */
     private void askForRepaint() {
-        view.painter.dontTouchThePaint = true;
+        view.dontTouchThePaint = true;
         view.repaint();
     }
     private void waitUntilPaintIsDry() {
-        while (view.painter.dontTouchThePaint) {
+        while (view.dontTouchThePaint) {
             tryToSleep(1L);
         }
         //System.out.println("DIFF = " + (timeNow() - prevUpdatePaintedTime));
         prevUpdatePaintedTime = timeNow();
     }
 
-    /* Waits with a combination of Thread.sleep and busywaiting */
+    private void waitBeforeUpdating() {
+        long expectedUpdateTime = 5 + Math.max((long)updateTimes.getAverage(), lastUpdateBurnedTime);
+        long endTime = prevUpdatePaintedTime + currentSpeed - expectedUpdateTime;
+        waitUntil(endTime);
+    }
+
     private void waitForNextUpdateTime() {
-        long endTime = prevUpdatePaintedTime + betweenUpdatesGoal;
+        long endTime = prevUpdatePaintedTime + currentSpeed;
+        waitUntil(endTime);
+    }
+
+    /* Waits with a combination of Thread.sleep and busywaiting */
+    private void waitUntil(long endTime) {
         long waitGoal = endTime - timeNow();
         long sleepGoal = waitGoal - 20L;
         if (sleepGoal > 0) {
@@ -73,6 +114,7 @@ public class GameLoop {
         gameState.stepAhead();
         long timeAfterUpdate = timeNow();
         long updateBurnedTime = timeAfterUpdate - timeBeforeUpdate;
+        lastUpdateBurnedTime = updateBurnedTime;
         updateTimes.addInstance(updateBurnedTime);
     }
 }

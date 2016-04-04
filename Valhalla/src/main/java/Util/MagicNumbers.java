@@ -10,4 +10,5 @@ public class MagicNumbers {
 
     public static final Color HEAD_MARKER_COLOR = Color.WHITE;
 
+
 }

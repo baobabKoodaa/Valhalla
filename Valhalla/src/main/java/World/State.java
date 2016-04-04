@@ -10,6 +10,7 @@ import static world.Terrain.*;
 
 public class State {
     public boolean updateInProgress;
+    private boolean paused;
     private Cell[][] map;
     private List<Organism> organismList;
     private int round;
@@ -17,6 +18,7 @@ public class State {
     public State() {
         round = 1;
         organismList = new ArrayList<>();
+        paused = false;
 
         /* Generates arbitrary map for testing purposes */
         int size = 500;
@@ -62,6 +64,7 @@ public class State {
     }
 
     public void stepAhead() {
+        if (paused) return;
         updateInProgress = true;
         round++;
         for (int i = organismList.size() - 1; i >= 0; i--) {
@@ -156,5 +159,11 @@ public class State {
         return cells;
     }
 
+    public void pauseOrPlay() {
+        paused = !paused;
+    }
 
+    public int getRoundNumber() {
+        return round;
+    }
 }

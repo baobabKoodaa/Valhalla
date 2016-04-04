@@ -21,7 +21,7 @@ public class Pair {
     @Override
     public int hashCode() {
         int result = x;
-        result = 31 * result + y;
+        result = 3100 * result + y;
         return result;
     }
 }
