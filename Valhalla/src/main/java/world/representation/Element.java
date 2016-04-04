@@ -1,4 +1,4 @@
-package world;
+package world.representation;
 
 import java.awt.*;
 

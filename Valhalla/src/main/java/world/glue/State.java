@@ -1,4 +1,10 @@
-package world;
+package world.glue;
+
+import world.representation.Food;
+import world.representation.Terrain;
+import world.underlying.Nanobot;
+import world.underlying.Organism;
+import world.underlying.Worm;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -6,7 +12,7 @@ import java.util.List;
 
 import static util.MagicNumbers.HUMAN_PLAYER;
 import static util.Utils.percentOfTime;
-import static world.Terrain.*;
+import static world.representation.Terrain.*;
 
 public class State {
     public boolean updateInProgress;

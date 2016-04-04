@@ -41,12 +41,10 @@
                     <targetClasses>
                         <param>world.*</param>
                         <param>util.*</param>
-                        <param>controller.*</param>
                     </targetClasses>
                     <targetTests>
                         <param>world.*</param>
                         <param>util.*</param>
-                        <param>controller.*</param>
                     </targetTests>
                 </configuration>
             </plugin>

@@ -1,11 +1,12 @@
 package gui;
 
 import controller.GameLoop;
-import world.State;
+import world.glue.Cell;
+import world.glue.State;
 
 import javax.swing.*;
 import util.Pair;
-import world.*;
+import world.representation.Blob;
 
 import java.awt.*;
 

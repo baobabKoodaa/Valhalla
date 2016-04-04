@@ -1,4 +1,8 @@
-package world;
+package world.underlying;
+
+import world.glue.Cell;
+import world.representation.Remains;
+import world.representation.Limb;
 
 import java.util.List;
 
@@ -54,6 +58,7 @@ public class Nanobot extends Organism {
     }
 
     private void clearLineOfSight() {
+        if (getState() == null) return; /* So that tests don't crash */
         List<Cell> cellsInRange = getState().getCellsWithinRadius(y, x, NANOBOT_LINE_OF_SIGHT);
         for (Cell cell : cellsInRange) {
             cell.setVisibleTo(getPlayer());

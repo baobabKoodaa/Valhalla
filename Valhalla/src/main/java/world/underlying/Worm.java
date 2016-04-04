@@ -1,4 +1,9 @@
-package world;
+package world.underlying;
+
+import world.glue.Cell;
+import world.representation.Element;
+import world.representation.Limb;
+import world.representation.Remains;
 
 import java.util.*;
 
@@ -39,11 +44,11 @@ public class Worm extends Organism {
         if (moveTo == null) {
             moveTo = getSomeCannibalizingMove();
             Limb limb = (Limb) moveTo.getTopElement();
-            if (limb.organism == this) {
+            if (limb.getOrganism() == this) {
                 dropTailUpTo(moveTo);
             } else {
                 System.out.println("Killed a friendly. Check this works ok.");
-                limb.organism.takeDamage(moveTo);
+                limb.getOrganism().takeDamage(moveTo);
             }
         }
         y = moveTo.y;

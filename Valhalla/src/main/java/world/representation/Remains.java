@@ -1,4 +1,6 @@
-package world;
+package world.representation;
+
+import world.representation.Food;
 
 import java.awt.*;
 

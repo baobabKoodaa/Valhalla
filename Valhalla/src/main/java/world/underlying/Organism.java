@@ -1,4 +1,7 @@
-package world;
+package world.underlying;
+
+import world.glue.Cell;
+import world.glue.State;
 
 public abstract class Organism {
     public boolean alive;

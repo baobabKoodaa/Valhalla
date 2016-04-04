@@ -1,4 +1,6 @@
-package world;
+package world.representation;
+
+import world.representation.Element;
 
 import java.awt.*;
 

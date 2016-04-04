@@ -1,4 +1,9 @@
-package world;
+package world.glue;
+
+import world.representation.Element;
+import world.representation.Limb;
+import world.representation.Terrain;
+import world.underlying.Organism;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,7 +86,7 @@ public class Cell {
             return false;
         }
         Limb limb = (Limb) getTopElement();
-        Organism o = limb.organism;
+        Organism o = limb.getOrganism();
         return (o.getPlayer() == player);
     }
 

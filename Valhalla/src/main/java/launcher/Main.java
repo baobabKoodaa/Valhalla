@@ -2,7 +2,7 @@ package launcher;
 
 import gui.View;
 import controller.GameLoop;
-import world.State;
+import world.glue.State;
 
 public class Main {
 

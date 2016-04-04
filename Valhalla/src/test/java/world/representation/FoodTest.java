@@ -1,13 +1,11 @@
-package world;
+package world.representation;
 
 import org.junit.Test;
+import world.representation.Food;
 
 import java.awt.*;
-import java.util.HashSet;
 
 import static org.junit.Assert.*;
-import static util.Utils.getColorForPlayer;
-import static util.Utils.getRemainsColorForPlayer;
 
 public class FoodTest {
 

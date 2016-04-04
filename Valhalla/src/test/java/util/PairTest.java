@@ -3,6 +3,7 @@ package util;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertFalse;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class PairTest {
@@ -25,6 +26,18 @@ public class PairTest {
         Pair a = new Pair(5, 8);
         Pair b = new Pair(5, 8);
         assertTrue(a.equals(b));
+    }
+
+    @Test
+    public void testPairDoesntCrashWhenComparedToString() {
+        Pair a = new Pair(5, 8);
+        assertFalse(a.equals("String"));
+    }
+
+    @Test
+    public void testPairHashCode() {
+        Pair a = new Pair(5, 8);
+        assertEquals(24805, a.hashCode());
     }
 
 }

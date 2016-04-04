@@ -2,7 +2,7 @@ package controller;
 
 import gui.View;
 import util.Average;
-import world.State;
+import world.glue.State;
 
 import java.util.ArrayList;
 import java.util.List;
