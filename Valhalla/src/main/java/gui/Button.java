@@ -19,7 +19,8 @@ public class Button {
         this.y = y;
         this.width = width;
         this.height = height;
-        String relativePath = "src/resources/" + name + ".png";
+        String s = File.separator;
+        String relativePath = "src"+s+"resources"+s+name+".png";
         try {
             this.img = ImageIO.read(new File(relativePath));
         } catch (IOException e) {
