@@ -4,11 +4,9 @@ import controller.GameLoop;
 import world.State;
 
 import javax.swing.*;
-import util.MagicNumbers;
 import util.Pair;
 import world.*;
 
-import javax.swing.*;
 import java.awt.*;
 
 import static util.MagicNumbers.HEAD_MARKER_COLOR;
