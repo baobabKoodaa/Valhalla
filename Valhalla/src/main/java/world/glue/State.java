@@ -16,7 +16,6 @@ import static world.representation.Terrain.*;
 
 public class State {
     public boolean updateInProgress;
-    private boolean paused;
     private Cell[][] map;
     private List<Organism> organismList;
     private int round;
@@ -24,7 +23,6 @@ public class State {
     public State() {
         round = 1;
         organismList = new ArrayList<>();
-        paused = false;
 
         /* Generates arbitrary map for testing purposes */
         int size = 500;
@@ -39,7 +37,9 @@ public class State {
                 }
             }
         }
+    }
 
+    public void placeSomeOrganisms() {
         placeOrganism(new Nanobot(), HUMAN_PLAYER, map[10][10]);
         placeOrganism(new Worm(), HUMAN_PLAYER, map[20][20]);
         placeOrganism(new Worm(), HUMAN_PLAYER, map[200][200]);
@@ -48,6 +48,9 @@ public class State {
     }
 
     public void placeOrganism(Organism o, int player, Cell cell) {
+        while (!cell.isEmpty()) {
+            cell.removeTopElement();
+        }
         o.setPlayer(player);
         o.setState(this);
         o.physicalBirth(cell);
@@ -70,7 +73,6 @@ public class State {
     }
 
     public void stepAhead() {
-        if (paused) return;
         updateInProgress = true;
         round++;
         for (int i = organismList.size() - 1; i >= 0; i--) {
@@ -165,11 +167,11 @@ public class State {
         return cells;
     }
 
-    public void pauseOrPlay() {
-        paused = !paused;
+    public int getRound() {
+        return round;
     }
 
-    public int getRoundNumber() {
-        return round;
+    public int getOrganismCount() {
+        return organismList.size();
     }
 }

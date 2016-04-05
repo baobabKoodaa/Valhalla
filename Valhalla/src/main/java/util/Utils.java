@@ -10,20 +10,24 @@ import static world.representation.Terrain.GRASS;
 
 public class Utils {
     private static Random rng = new Random();
-    private static final Color[] playerColors = {Color.GREEN, Color.RED, Color.GREEN, Color.BLUE};
-    private static final Color[] remainsColors = {Color.GREEN, Color.pink, Color.GREEN, Color.BLUE};
+    private static Color[] playerColors = {Color.GREEN, Color.RED, Color.GREEN, Color.BLUE};
+    private static Color[] remainsColors = {Color.GREEN, Color.pink, Color.GREEN, Color.BLUE};
 
     public static boolean percentOfTime(int p) {
         return (rng.nextInt(100) + 1 <= p);
     }
 
     public static Color getColorForPlayer(int player) {
-        if (player >= playerColors.length) player = 0;
+        if (player >= playerColors.length) {
+            player = 0;
+        }
         return playerColors[player];
     }
 
     public static Color getRemainsColorForPlayer(int player) {
-        if (player >= remainsColors.length) player = 0;
+        if (player >= remainsColors.length) {
+            player = 0;
+        }
         return remainsColors[player];
     }
 

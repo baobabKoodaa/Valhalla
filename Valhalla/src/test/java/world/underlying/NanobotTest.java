@@ -1,8 +1,10 @@
 package world.underlying;
 
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import world.glue.Cell;
+import world.glue.State;
 import world.representation.Element;
 import world.representation.Terrain;
 
@@ -16,13 +18,21 @@ public class NanobotTest {
 
     Cell birthPlace;
     Nanobot nanobot;
+    int player;
+    State state;
+
+    @BeforeClass
+    public static void onlyOnce() {
+
+    }
 
     @Before
-    public void initNanobot() {
-        birthPlace = new Cell(5, 8, Terrain.ATOMICSNOW);
+    public void beforeEachTest() {
+        state = new State();
         nanobot = new Nanobot();
-        nanobot.setPlayer(2);
-        nanobot.physicalBirth(birthPlace);
+        birthPlace = state.getMap()[5][8];
+        player = 2;
+        state.placeOrganism(nanobot, player, birthPlace);
     }
 
     @Test
@@ -33,7 +43,7 @@ public class NanobotTest {
     @Test
     public void testPhysicalBirthAddsElementRepresentingNanobot() {
         Element e = birthPlace.getTopElement();
-        assertEquals(getColorForPlayer(2), e.getColor());
+        assertEquals(getColorForPlayer(player), e.getColor());
     }
 
     @Test
@@ -57,10 +67,44 @@ public class NanobotTest {
     }
 
     @Test
-    public void liveSometimesDoesNothing() {
-        for (int i=0; i<1000; i++) {
-
+    public void testLive() {
+        Cell[][] map = state.getMap();
+        int movesCount = 0;
+        int prevX = nanobot.x;
+        int prevY = nanobot.y;
+        for (int i = 0; i < 10000; i++) {
+            Element limb = map[prevY][prevX].getTopElement();
+            nanobot.live(map);
+            if (nanobot.x != prevX || nanobot.y != prevY) {
+                movesCount++;
+                assertTrue("Nanobot moves but leaves limb behind", map[prevY][prevX].getTopElement() != limb);
+                /* Note: may replicate onto the previous cell */
+            }
+            prevX = nanobot.x;
+            prevY = nanobot.y;
         }
+        assertTrue("Nanobot is moving always (it should sometimes stay)", movesCount < 10000);
+        assertTrue("Nanobot is never moving when asked to", movesCount > 0);
+        assertTrue("Nanobot is never replicating onto the map", state.getOrganismCount() > 1);
+    }
+
+    @Test
+    public void testClearLineOfSightOnBirthPlace() {
+        assertTrue(birthPlace.isVisibleTo(player));
+    }
+
+    @Test
+    public void testClearLineOfSightOnSomeNeighbor() {
+        Cell[][] map = state.getMap();
+        Cell neighbor = map[birthPlace.y+1][birthPlace.x];
+        assertTrue(neighbor.isVisibleTo(player));
+    }
+
+    @Test
+    public void testClearLineOfSightDoesntClearForOtherPlayers() {
+        Cell[][] map = state.getMap();
+        Cell neighbor = map[birthPlace.y+1][birthPlace.x];
+        assertFalse(neighbor.isVisibleTo(HUMAN_PLAYER));
     }
 
 }

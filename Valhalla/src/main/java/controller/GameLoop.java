@@ -11,6 +11,7 @@ import static util.Utils.tryToSleep;
 
 public class GameLoop {
     State gameState;
+    private boolean paused;
     Average updateTimes;
     long prevUpdatePaintedTime;
     long lastUpdateBurnedTime;
@@ -56,6 +57,11 @@ public class GameLoop {
         waitForNextUpdateTime();
         while (true) {
             waitBeforeUpdating(); /* User clicks will cause repaints too, so we don't want to update too early */
+            if (paused) {
+                /* This block must be just before updateGameState to get instant pausing */
+                tryToSleep(50L);
+                continue;
+            }
             updateGameState();
             waitForNextUpdateTime(); /* We don't want to draw too early */
             askForRepaint();
@@ -77,7 +83,7 @@ public class GameLoop {
     }
 
     private void waitBeforeUpdating() {
-        long expectedUpdateTime = 5 + Math.max((long)updateTimes.getAverage(), lastUpdateBurnedTime);
+        long expectedUpdateTime = 5 + Math.max((long) updateTimes.getAverage(), lastUpdateBurnedTime);
         long endTime = prevUpdatePaintedTime + currentSpeed - expectedUpdateTime;
         waitUntil(endTime);
     }
@@ -116,5 +122,9 @@ public class GameLoop {
         long updateBurnedTime = timeAfterUpdate - timeBeforeUpdate;
         lastUpdateBurnedTime = updateBurnedTime;
         updateTimes.addInstance(updateBurnedTime);
+    }
+
+    public void pauseOrPlay() {
+        paused = !paused;
     }
 }

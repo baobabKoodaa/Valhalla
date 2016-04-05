@@ -100,7 +100,7 @@ public class View {
                 button.draw(g2d);
             }
             g2d.setColor(Color.BLACK);
-            g2d.drawString(state.getRoundNumber() + "", viewWidth/2 + 63, 30);
+            g2d.drawString(state.getRound() + "", viewWidth/2 + 63, 30);
             dontTouchThePaint = false; /* Concurrency related flag */
         }
 
@@ -181,7 +181,7 @@ public class View {
     public void pressButton(String name) {
         switch (name) {
             case "pause":
-                state.pauseOrPlay();
+                gameLoop.pauseOrPlay();
                 break;
             case "faster":
                 gameLoop.faster();

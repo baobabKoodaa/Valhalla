@@ -33,4 +33,9 @@ public class Element {
     public boolean canBeEatenBy(int player) {
         return false;
     }
+
+    @Override
+    public String toString() {
+        return "Element of class " + this.getClass().toString();
+    }
 }

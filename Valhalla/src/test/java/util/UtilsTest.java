@@ -31,16 +31,32 @@ public class UtilsTest {
     }
 
     @Test
-    public void testPercentOfTimeFrequency() {
+    public void testPercentOfTimeFrequencyWithinReasonableRange() {
+        double freq = percentOfTimeFrequency(80);
+        assertTrue(freq < 0.82 && freq > 0.78);
+    }
+
+    private double percentOfTimeFrequency(int p) {
         int trueCount = 0;
         int allCount = 0;
         for (int i=0; i<100000; i++) {
-            boolean random = percentOfTime(80);
+            boolean random = percentOfTime(p);
             allCount++;
             if (random) trueCount++;
         }
-        double freq = 1.0 * trueCount / allCount;
-        assertTrue(freq < 0.82 && freq > 0.78);
+        return 1.0 * trueCount / allCount;
+    }
+
+    @Test
+    public void testPercentOfTime100() {
+        double freq = percentOfTimeFrequency(100);
+        assertEquals(1, freq, 0.0000001);
+    }
+
+    @Test
+    public void testPercentOfTime0() {
+        double freq = percentOfTimeFrequency(0);
+        assertEquals(0, freq, 0.0000001);
     }
 
     @Test

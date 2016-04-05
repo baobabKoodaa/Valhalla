@@ -30,8 +30,11 @@ public class Nanobot extends Organism {
     @Override
     public void live(Cell[][] map) {
         if (percentOfTime(50)) {
-            return;
+            move(map);
         }
+    }
+
+    public void move(Cell[][] map) {
         Limb head = (Limb) map[y][x].getTopElement(); /* TODO: Same, but typesafe */
         Cell moveTo = getState().getRandomAdjacentNonFriendlyCell(y, x, getPlayer());
         if (moveTo == null) {
@@ -58,7 +61,6 @@ public class Nanobot extends Organism {
     }
 
     private void clearLineOfSight() {
-        if (getState() == null) return; /* So that tests don't crash */
         List<Cell> cellsInRange = getState().getCellsWithinRadius(y, x, NANOBOT_LINE_OF_SIGHT);
         for (Cell cell : cellsInRange) {
             cell.setVisibleTo(getPlayer());
