@@ -16,3 +16,4 @@ Päivä | Tunnit | Kuvaus
 04.04.2016      |    4h | Koodausta: ButtonMapper, GUI:n refaktorointia
 04.04.2016      |    1h | Koodikatselmointi
 04.04.2016      |    3h | Testien kirjoittamista
+05.04.2016      |    3h | Testien kirjoittamista
