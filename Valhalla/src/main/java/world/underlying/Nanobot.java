@@ -9,6 +9,9 @@ import java.util.List;
 import static util.MagicNumbers.NANOBOT_LINE_OF_SIGHT;
 import static util.Utils.percentOfTime;
 
+/**
+ * Replicating organism which occupies 1 Cell only.
+ */
 public class Nanobot extends Organism {
 
     @Override

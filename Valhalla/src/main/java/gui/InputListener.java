@@ -5,6 +5,10 @@ import util.Pair;
 import javax.swing.*;
 import java.awt.event.*;
 
+
+/**
+ * Mouse action listener.
+ */
 public class InputListener implements ActionListener, MouseListener, MouseMotionListener, MouseWheelListener {
 
     private Pair lastDrag;

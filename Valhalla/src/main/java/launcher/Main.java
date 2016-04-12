@@ -4,6 +4,9 @@ import gui.View;
 import controller.GameLoop;
 import world.glue.State;
 
+/**
+ * Launcher.
+ */
 public class Main {
 
     public static void main(String[] args) throws InterruptedException {

@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Given any pixel on screen, ButtonMapper can answer if any button is on it.
+ */
 public class ButtonMapper {
     List<Button> iterableList;
     HashMap<Pair, Button> pixelMap;

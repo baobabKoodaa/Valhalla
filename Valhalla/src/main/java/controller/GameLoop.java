@@ -9,13 +9,16 @@ import java.util.List;
 
 import static util.Utils.tryToSleep;
 
+/**
+ * Periodically asks for game state update and repaint.
+ */
 public class GameLoop {
     State gameState;
     private boolean paused;
     Average updateTimes;
     long prevUpdatePaintedTime;
     long lastUpdateBurnedTime;
-    long currentSpeed; /* Goal how many ms between updates */
+    long currentSpeed; /* Goal how many milliseconds between updates */
     int indexForCurrentSpeed;
     List<Long> speedOptions;
     View view;
@@ -28,6 +31,7 @@ public class GameLoop {
         this.view = view;
     }
 
+    /** Creates a list of speeds which user can iterate back and forth. */
     public void initializeSpeeds() {
         this.speedOptions = new ArrayList<Long>();
         for (long i = 5; i <= 3000; i *= 1.5) {
@@ -65,7 +69,7 @@ public class GameLoop {
             updateGameState();
             waitForNextUpdateTime(); /* We don't want to draw too early */
             askForRepaint();
-            waitUntilPaintIsDry(); /*  */
+            waitUntilPaintIsDry();
         }
     }
 

@@ -8,6 +8,9 @@ import java.util.Random;
 import static world.representation.Terrain.ATOMICSNOW;
 import static world.representation.Terrain.GRASS;
 
+/**
+ * Various utility functions here.
+ */
 public class Utils {
     private static Random rng = new Random();
     private static Color[] playerColors = {Color.GREEN, Color.RED, Color.GREEN, Color.BLUE};

@@ -2,6 +2,9 @@ package world.representation;
 
 import java.awt.*;
 
+/**
+ * Cells may contain elements, which represent various different things.
+ */
 public class Element {
     private Color color;
     private boolean markHead;
@@ -18,6 +21,7 @@ public class Element {
         this.color = color;
     }
 
+    /** An organism may occupy many cells (represented by many elements). Only 1 element may be the "head". */
     public void setAsHead() {
         this.markHead = true;
     }
@@ -30,6 +34,7 @@ public class Element {
         return this.markHead;
     }
 
+    /** Only food can be eaten. Remains are food, which can be eaten by other players. */
     public boolean canBeEatenBy(int player) {
         return false;
     }

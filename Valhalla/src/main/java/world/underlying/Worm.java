@@ -9,6 +9,9 @@ import java.util.*;
 
 import static util.MagicNumbers.NANOBOT_LINE_OF_SIGHT;
 
+/**
+ * Traditional worm (like Nokia cellphone games).
+ */
 public class Worm extends Organism {
     Deque<Cell> partsOfWorm;
     int length;

@@ -5,6 +5,9 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * Button has a (pre-loaded) image and an identifier (name).
+ */
 public class Button {
     String name;
     Image img;

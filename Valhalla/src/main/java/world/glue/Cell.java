@@ -10,6 +10,9 @@ import java.util.List;
 
 import static util.MagicNumbers.*;
 
+/**
+ * Each square in our 2D Grid is a Cell.
+ */
 public class Cell {
     public int y;
     public int x;
@@ -66,7 +69,7 @@ public class Cell {
         return false;
     }
 
-    /* Returns true if food was available. Only eats 1 food. */
+    /* Returns true if food was available, only eats 1 food. */
     public boolean eatFoodAs(int player) {
         for (int i = elements.size() - 1; i >= 0; i--) {
             Element element = elements.get(i);

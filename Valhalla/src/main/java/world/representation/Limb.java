@@ -6,6 +6,9 @@ import java.awt.*;
 
 import static util.Utils.getColorForPlayer;
 
+/**
+ * The physical manifestation of an organism consists of Limbs.
+ */
 public class Limb extends Element {
     Organism organism;
 

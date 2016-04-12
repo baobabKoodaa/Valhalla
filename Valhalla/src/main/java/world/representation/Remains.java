@@ -6,6 +6,9 @@ import java.awt.*;
 
 import static util.Utils.*;
 
+/**
+ * A dead organism becomes food to other players.
+ */
 public class Remains extends Food {
     int player;
 
@@ -15,6 +18,7 @@ public class Remains extends Food {
         super.setColor(color);
     }
 
+    /** Remains of player A may not be eaten by player A. */
     @Override
     public boolean canBeEatenBy(int player) {
         return this.player != player;

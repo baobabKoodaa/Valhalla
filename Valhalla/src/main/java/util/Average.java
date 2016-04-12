@@ -1,5 +1,8 @@
 package util;
 
+/**
+ * Average.
+ */
 public class Average {
     private long sum;
     private long count;

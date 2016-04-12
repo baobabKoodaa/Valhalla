@@ -2,6 +2,9 @@ package util;
 
 import java.awt.*;
 
+/**
+ * Magic Numbers.
+ */
 public class MagicNumbers {
     public static final int MAX_PLAYERS = 10;
     public static final int HUMAN_PLAYER = 1;

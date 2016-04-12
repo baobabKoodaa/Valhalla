@@ -15,6 +15,9 @@ import static util.MagicNumbers.HUMAN_PLAYER;
 import static util.Utils.getColorForTerrain;
 import static util.Utils.tryToSleep;
 
+/**
+ * GUI responsible for painting a view and interpreting user actions.
+ */
 public class View {
     private JFrame frame;
     private JPanel canvas;
@@ -156,6 +159,7 @@ public class View {
         repaint();
     }
 
+    /* Interpret either as button click or selection of a cell */
     public void userClickedOn(Pair point) {
         Button button = buttonMapper.getButton(point);
         if (button != null) {

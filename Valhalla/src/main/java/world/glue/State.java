@@ -14,6 +14,9 @@ import static util.MagicNumbers.HUMAN_PLAYER;
 import static util.Utils.percentOfTime;
 import static world.representation.Terrain.*;
 
+/**
+ * Internal game state is accessed via a State object.
+ */
 public class State {
     public boolean updateInProgress;
     private Cell[][] map;

@@ -17,3 +17,4 @@ Päivä | Tunnit | Kuvaus
 04.04.2016      |    1h | Koodikatselmointi
 04.04.2016      |    3h | Testien kirjoittamista
 05.04.2016      |    3h | Testien kirjoittamista
+12.04.2016		|	 2h | JavaDoc yms.
