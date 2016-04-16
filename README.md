@@ -10,6 +10,6 @@ Reaaliaikainen peli/simulaatio, jonka maailma esitetään ylhäältä päin kuva
 
 [tuntikirjanpito](dokumentointi/tuntikirjanpito.md)
 
-[checkstyle](dokumentointi/checkstyle-raportti/checkstyle.html) (21 files, 0 errors)
+[checkstyle HTML preview](https://htmlpreview.github.io/?https://github.com/baobabKoodaa/Valhalla/blob/master/dokumentointi/checkstyle-raportti/checkstyle.html) (21 files, 0 errors)
 
 ![Luokkakaavio](/dokumentointi/luokkaKaavio.png "Luokkakaavio")
