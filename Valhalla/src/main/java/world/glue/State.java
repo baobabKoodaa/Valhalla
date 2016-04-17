@@ -14,22 +14,18 @@ import static util.MagicNumbers.HUMAN_PLAYER;
 import static util.Utils.percentOfTime;
 import static world.representation.Terrain.*;
 
-/**
- * Internal game state is accessed via a State object.
- */
+/** Internal game state is accessed via a State object. */
 public class State {
     public boolean updateInProgress;
+    public int round;
     private Cell[][] map;
     private List<Organism> organismList;
-    private int round;
 
+    /** Constructor initializes state. Generates arbitrary map for testing purposes. */
     public State() {
         round = 1;
         organismList = new ArrayList<>();
-
-        /* Generates arbitrary map for testing purposes */
-        int size = 500;
-        map = new Cell[size][size];
+        map = new Cell[500][500];
         for (int y = 0; y < map.length; y++) {
             for (int x = 0; x < map[y].length; x++) {
                 Terrain terrain = ATOMICSNOW;
@@ -42,6 +38,7 @@ public class State {
         }
     }
 
+    /** Places some new organisms on the map. */
     public void placeSomeOrganisms() {
         placeOrganism(new Nanobot(), HUMAN_PLAYER, map[10][10]);
         placeOrganism(new Worm(), HUMAN_PLAYER, map[20][20]);
@@ -50,6 +47,11 @@ public class State {
         placeOrganism(new Worm(), HUMAN_PLAYER, map[300][300]);
     }
 
+    /** Places a particular organism on a particular cell.
+     * @param o organism to place
+     * @param player player
+     * @param cell cell
+     */
     public void placeOrganism(Organism o, int player, Cell cell) {
         while (!cell.isEmpty()) {
             cell.removeTopElement();
@@ -61,20 +63,16 @@ public class State {
         organismList.add(o);
     }
 
-    /* We want clusters of food & individual spots */
-    private boolean shouldHaveFood(int y, int x) {
+    private boolean shouldHaveFood(int y, int x) { /* Used in map generation. We want clusters of food & individual spots */
         if (percentOfTime(1)) {
             return true;
         }
         boolean northFood = (y > 0 && map[y - 1][x].hasFood());
         boolean westFood = (x > 0 && map[y][x - 1].hasFood());
-        //if (northFood && westFood) return percentOfTime(90);
-        if (northFood || westFood) {
-            return percentOfTime(40);
-        }
-        return false;
+        return (northFood || westFood) && percentOfTime(40);
     }
 
+    /** Steps ahead to the next game state. Called from game loop. */
     public void stepAhead() {
         updateInProgress = true;
         round++;
@@ -94,6 +92,10 @@ public class State {
         updateInProgress = false;
     }
 
+    /** Returns true if organism has already acted this round.
+     * @param organism organism
+     * @return true if organism has already acted this round
+     */
     public boolean actedAlreadyThisRound(Organism organism) {
         return (organism.getRoundOfLatestAction() == round);
     }
@@ -102,7 +104,11 @@ public class State {
         return map;
     }
 
-    /* Diagonal not considered to be adjacent */
+    /** Returns random adjacent cell (diagonal not considered to be adjacent).
+     * @param y y of center
+     * @param x x of center
+     * @return random adjacent cell
+     */
     public Cell getRandomAdjacentCell(int y, int x) {
         List<Cell> options = getNeighboursWithinRadius(y, x, 1);
         Collections.shuffle(options);
@@ -115,7 +121,11 @@ public class State {
         return null; /* Never returns null */
     }
 
-    /* Diagonal not considered to be adjacent */
+    /** Returns random adjacent empty cell (diagonal not considered to be adjacent).
+     * @param y y of center
+     * @param x x of center
+     * @return random adjacent empty cell, or null if none are possible
+     */
     public Cell getRandomAdjacentEmptyCell(int y, int x) {
         List<Cell> options = getNeighboursWithinRadius(y, x, 1);
         Collections.shuffle(options);
@@ -130,7 +140,12 @@ public class State {
         return null;
     }
 
-    /* Diagonal not considered to be adjacent */
+    /** Returns random adjacent non friendly cell (diagonal not considered to be adjacent).
+     * @param y y of center
+     * @param x x of center
+     * @param player player to determine friendly or not
+     * @return cell
+     */
     public Cell getRandomAdjacentNonFriendlyCell(int y, int x, int player) {
         List<Cell> options = getNeighboursWithinRadius(y, x, 1);
         Collections.shuffle(options);
@@ -145,14 +160,17 @@ public class State {
         return null;
     }
 
+    /** Returns a list of cells which are neighbors to given coordinates within a given radius.
+     * @param centerY y
+     * @param centerX x
+     * @param radius radius
+     * @return list of cells
+     */
     public List<Cell> getNeighboursWithinRadius(int centerY, int centerX, int radius) {
         List<Cell> list = new ArrayList<>();
         for (int y = centerY - radius; y <= centerY + radius; y++) {
             for (int x = centerX - radius; x <= centerX + radius; x++) {
-                if (y < 0 || x < 0) {
-                    continue;
-                }
-                if (y >= map.length || x >= map[y].length) {
+                if (y < 0 || x < 0 || y >= map.length || x >= map[y].length) {
                     continue;
                 }
                 if (y == centerY && x == centerX) {
@@ -164,14 +182,16 @@ public class State {
         return list;
     }
 
+    /** Similar to getNeighboursWithinRadius, but includes the center as well.
+     * @param centerY y
+     * @param centerX x
+     * @param radius radius
+     * @return list of cells
+     */
     public List<Cell> getCellsWithinRadius(int centerY, int centerX, int radius) {
         List<Cell> cells = getNeighboursWithinRadius(centerY, centerX, radius);
         cells.add(map[centerY][centerX]);
         return cells;
-    }
-
-    public int getRound() {
-        return round;
     }
 
     public int getOrganismCount() {

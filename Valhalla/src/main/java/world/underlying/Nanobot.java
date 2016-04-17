@@ -37,6 +37,10 @@ public class Nanobot extends Organism {
         }
     }
 
+    /**
+     * Tries to move to a neighboring cell, possibly eating food and replicating.
+     * @param map map
+     */
     public void move(Cell[][] map) {
         Limb head = (Limb) map[y][x].getTopElement(); /* TODO: Same, but typesafe */
         Cell moveTo = getState().getRandomAdjacentNonFriendlyCell(y, x, getPlayer());

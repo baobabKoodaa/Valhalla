@@ -9,6 +9,9 @@ import java.awt.*;
  */
 public class Food extends Element {
 
+    /**
+     * Constructor.
+     */
     public Food() {
         super.setColor(Color.GRAY);
     }

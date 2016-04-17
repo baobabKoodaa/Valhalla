@@ -9,6 +9,9 @@ public class Element {
     private Color color;
     private boolean markHead;
 
+    /**
+     * Constructor.
+     */
     public Element() {
         this.color = Color.BLACK;
     }
@@ -26,15 +29,26 @@ public class Element {
         this.markHead = true;
     }
 
+    /**
+     * Unsets as head.
+     */
     public void unsetAsHead() {
         this.markHead = false;
     }
 
+    /**
+     * Returns true if this is head.
+     * @return true if this is head.
+     */
     public boolean paintAsHead() {
         return this.markHead;
     }
 
-    /** Only food can be eaten. Remains are food, which can be eaten by other players. */
+    /**
+     * Only food can be eaten. Remains are food, which can be eaten by other players.
+     * @param player player
+     * @return true if player can eat this element
+     */
     public boolean canBeEatenBy(int player) {
         return false;
     }

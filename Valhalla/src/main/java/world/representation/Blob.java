@@ -7,6 +7,9 @@ import java.awt.*;
  */
 public class Blob extends Element {
 
+    /**
+     * Constructor.
+     */
     public Blob() {
         super.setColor(Color.GREEN);
     }

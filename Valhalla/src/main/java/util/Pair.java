@@ -7,6 +7,11 @@ public class Pair {
     public int y;
     public int x;
 
+    /**
+     * Constructor initializes object.
+     * @param y y
+     * @param x x
+     */
     public Pair(int y, int x) {
         this.y = y;
         this.x = x;

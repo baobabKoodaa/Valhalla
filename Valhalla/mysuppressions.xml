@@ -9,4 +9,6 @@
     <suppress files="Painter.java" checks="[a-zA-Z0-9]*"/>
     <suppress files="View.java" checks="[a-zA-Z0-9]*"/>
     <suppress files="Main.java" checks="[a-zA-Z0-9]*"/>
+    <suppress files="Button.java" checks="[a-zA-Z0-9]*"/>
+    <suppress files="ButtonMapper.java" checks="[a-zA-Z0-9]*"/>
 </suppressions>

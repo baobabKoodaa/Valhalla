@@ -44,14 +44,14 @@ public class StateTest {
     public void testPlaceOrganismSetsRound() {
         Cell cell = state.getMap()[4][4];
         state.placeOrganism(nanobot, player, cell);
-        assertEquals(state.getRound(), nanobot.getRoundOfLatestAction());
+        assertEquals(state.round, nanobot.getRoundOfLatestAction());
     }
 
     @Test
     public void testStepAheadIncrementsRound() {
-        int prevRound = state.getRound();
+        int prevRound = state.round;
         state.stepAhead();
-        assertEquals(prevRound+1, state.getRound());
+        assertEquals(prevRound+1, state.round);
     }
 
     @Test

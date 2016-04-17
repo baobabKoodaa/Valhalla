@@ -11,7 +11,9 @@ public abstract class Organism {
     private int player;
     private int roundOfLatestAction;
 
-
+    /**
+     * Constructor.
+     */
     public Organism() {
         this.roundOfLatestAction = -666;
         this.alive = true;
@@ -40,7 +42,21 @@ public abstract class Organism {
         return player;
     }
 
+    /**
+     * Initializes the birth of organism to cell birthPlace.
+     * @param birthPlace cell where this thing is born
+     */
     abstract public void physicalBirth(Cell birthPlace);
+
+    /**
+     * Takes a damage to some limb at cell.
+     * @param cell where damaged limb was
+     */
     abstract public void takeDamage(Cell cell);
+
+    /**
+     * Lives on the map.
+     * @param map map
+     */
     abstract public void live(Cell[][] map);
 }

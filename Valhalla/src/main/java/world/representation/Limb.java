@@ -12,6 +12,10 @@ import static util.Utils.getColorForPlayer;
 public class Limb extends Element {
     Organism organism;
 
+    /**
+     * Constructor.
+     * @param organism to which this limb belongs to
+     */
     public Limb(Organism organism) {
         this.organism = organism;
         int player = organism.getPlayer();

@@ -23,6 +23,11 @@ public class GameLoop {
     List<Long> speedOptions;
     View view;
 
+    /**
+     * Constructor initializes game loop.
+     * @param gameState reference to the game state
+     * @param view reference to the view
+     */
     public GameLoop(State gameState, View view) {
         this.gameState = gameState;
         initializeSpeeds();
@@ -41,6 +46,7 @@ public class GameLoop {
         this.currentSpeed = speedOptions.get(indexForCurrentSpeed);
     }
 
+    /** Increases loop speed. */
     public void faster() {
         if (indexForCurrentSpeed == 0) {
             return;
@@ -49,6 +55,7 @@ public class GameLoop {
         currentSpeed = speedOptions.get(indexForCurrentSpeed);
     }
 
+    /** Decreases loop speed. */
     public void slower() {
         if (indexForCurrentSpeed == speedOptions.size()) {
             return;
@@ -57,6 +64,7 @@ public class GameLoop {
         currentSpeed = speedOptions.get(indexForCurrentSpeed);
     }
 
+    /** Starts game loop. */
     public void start() {
         waitForNextUpdateTime();
         while (true) {
@@ -73,7 +81,7 @@ public class GameLoop {
         }
     }
 
-    /* Protection against concurrency related repaint errors */
+    /** Protection against concurrency related repaint errors. */
     private void askForRepaint() {
         view.dontTouchThePaint = true;
         view.repaint();
@@ -97,7 +105,7 @@ public class GameLoop {
         waitUntil(endTime);
     }
 
-    /* Waits with a combination of Thread.sleep and busywaiting */
+    /** Waits with a combination of Thread.sleep and busywaiting. */
     private void waitUntil(long endTime) {
         long waitGoal = endTime - timeNow();
         long sleepGoal = waitGoal - 20L;
@@ -118,7 +126,7 @@ public class GameLoop {
         return System.nanoTime() / 1000000;
     }
 
-    /* Asks gameState to step ahead and measures time spent */
+    /** Asks gameState to step ahead and measures time spent. */
     private void updateGameState() {
         long timeBeforeUpdate = timeNow();
         gameState.stepAhead();
@@ -128,6 +136,7 @@ public class GameLoop {
         updateTimes.addInstance(updateBurnedTime);
     }
 
+    /** If loop was paused, continues loop. Otherwise pauses loop. */
     public void pauseOrPlay() {
         paused = !paused;
     }

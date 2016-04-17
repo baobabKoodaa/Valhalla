@@ -12,6 +12,11 @@ import static util.Utils.*;
 public class Remains extends Food {
     int player;
 
+    /**
+     * Constructor.
+     * @param player whose remains these are
+     *
+     */
     public Remains(int player) {
         this.player = player;
         Color color = getRemainsColorForPlayer(player);
