@@ -16,3 +16,7 @@
 - Reaaliaikainen gamelooppi
 - Tekoälyllä liikkuvat organismit, joista toistaiseksi toteutettu Nanobot ja Worm.
 - Tällä hetkellä ohjelma pyörii simulaationa, jossa organismit syövät kartalta löytyvää ruokaa ja monistautuvat tai kasvavat lajikkeesta riippuen.
+
+# Viikko 5 sekvenssikaaviot
+
+![Sekvenssikaaviot](/sekvenssikaaviot.jpg "Sekvenssikaaviot")
