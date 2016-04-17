@@ -19,4 +19,4 @@
 
 # Viikko 5 sekvenssikaaviot
 
-![Sekvenssikaaviot](/sekvenssikaaviot.jpg "Sekvenssikaaviot")
+![Sekvenssikaaviot](/dokumentointi/sekvenssikaaviot.jpg "Sekvenssikaaviot")
