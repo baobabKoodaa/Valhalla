@@ -2,7 +2,7 @@
 
 Taistelu robottien herruudesta ydinsodan tuhoamien raunioiden keskellä.
 
-Reaaliaikainen peli/simulaatio, jonka maailma esitetään ylhäältä päin kuvattuna 2d-ruudukkona.
+Tai rehdimmin sanottuna pieni simulaatio ruudukkopohjaisen GUI:n esittelyyn.
 
 ### Dokumentaatio
 
