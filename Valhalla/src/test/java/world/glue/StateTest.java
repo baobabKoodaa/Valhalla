@@ -48,6 +48,12 @@ public class StateTest {
     }
 
     @Test
+    public void testPlaceSomeOrganisms() {
+        state.placeSomeOrganisms();
+        assertEquals(5, state.getOrganismCount());
+    }
+
+    @Test
     public void testStepAheadIncrementsRound() {
         int prevRound = state.round;
         state.stepAhead();
