@@ -10,7 +10,7 @@ import static util.Utils.*;
  * A dead organism becomes food to other players.
  */
 public class Remains extends Food {
-    int player;
+    private int player;
 
     /**
      * Constructor.

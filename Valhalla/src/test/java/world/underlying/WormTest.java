@@ -42,7 +42,7 @@ public class WormTest {
 
     @Test
     public void testPhysicalCreatesWormPart() {
-        assertTrue(worm.partsOfWorm.size() == 1);
+        assertTrue(worm.getLength() == 4);
     }
 
     @Test

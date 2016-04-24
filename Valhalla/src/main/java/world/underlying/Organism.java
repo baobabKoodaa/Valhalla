@@ -4,9 +4,13 @@ import world.glue.Cell;
 import world.glue.State;
 
 public abstract class Organism {
+    /** Flags alive/dead. */
     public boolean alive;
+
+    /** Coordinates. */
     public int y;
     public int x;
+
     private State state;
     private int player;
     private int roundOfLatestAction;

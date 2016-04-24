@@ -15,6 +15,10 @@ public class InputListener implements ActionListener, MouseListener, MouseMotion
     private Pair lastPress;
     private View view;
 
+    /** Constructor.
+     *
+     * @param view view
+     */
     public InputListener(View view) {
         this.view = view;
     }
@@ -77,6 +81,11 @@ public class InputListener implements ActionListener, MouseListener, MouseMotion
         else view.zoomOut(point);
     }
 
+    /** Transforms a mouse-event into a coordinate pair.
+     *
+     * @param e mouse-event
+     * @return coordinate-pair created from mouse-event
+     */
     public Pair getPoint(MouseEvent e) {
         return new Pair(e.getY(), e.getX());
     }

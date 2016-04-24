@@ -16,8 +16,8 @@ import static world.representation.Terrain.*;
 
 /** Internal game state is accessed via a State object. */
 public class State {
-    public boolean updateInProgress;
-    public int round;
+    /** Concurrency related flag. */ public boolean updateInProgress;
+    /** Round number. */public int round;
     private Cell[][] map;
     private List<Organism> organismList;
 

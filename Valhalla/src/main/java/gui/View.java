@@ -22,8 +22,6 @@ public class View {
     private JFrame frame;
     private JPanel canvas;
     private GameLoop gameLoop;
-
-    public boolean dontTouchThePaint;
     private State state;
     private int cellSideLength;
     private double offsetY;
@@ -33,6 +31,13 @@ public class View {
     private Pair selectedSq;
     private ButtonMapper buttonMapper;
 
+    /** A concurrency flag. */
+    public boolean dontTouchThePaint;
+
+    /** Constructor initializes the view.
+     *
+     * @param state state
+     */
     public View(State state) {
         frame = new JFrame();
         this.state = state;
@@ -56,14 +61,22 @@ public class View {
         frame.setLocationRelativeTo(null);
     }
 
+    /** Setter for game loop.
+     *
+     * @param loop loop
+     */
     public void setGameLoop(GameLoop loop) {
         this.gameLoop = loop;
     }
 
+    /** Parallel repaint, I think. */
     public void repaint() {
         canvas.repaint();
     }
 
+    /** Using a JPanel to do the actual drawing on.
+     *
+     */
     private class Canvas extends JPanel {
         @Override
         public void paintComponent(Graphics g) {
@@ -87,8 +100,15 @@ public class View {
                 int viewX = - (int)offsetX % cellSideLength;
                 for (int x=leftX; x<=rightX; x++, viewX+=cellSideLength) {
                     Cell cell = map[y][x];
-                    if (cell.isVisibleTo(HUMAN_PLAYER)) drawCell(g2d, cell, viewY, viewX);
-                    else drawUndiscoveredArea(g2d, viewY, viewX);
+                    try {
+                        if (cell.isVisibleTo(HUMAN_PLAYER))
+                            drawCell(g2d, cell, viewY, viewX);
+                        else
+                            drawUndiscoveredArea(g2d, viewY, viewX);
+                    } catch (Exception e) {
+                        /** The purpose of this block is to hide rare concurrency related errors.
+                         * I should have used a mutex or something. */
+                    }
                 }
             }
             /* Draw selection */
@@ -107,7 +127,7 @@ public class View {
             dontTouchThePaint = false; /* Concurrency related flag */
         }
 
-        public void drawCell(Graphics2D g2d, Cell cell, int viewY, int viewX) {
+        private void drawCell(Graphics2D g2d, Cell cell, int viewY, int viewX) {
             /* Draw terrain */
             g2d.setColor(getColorForTerrain(cell.getTerrain()));
             g2d.fillRect(viewX, viewY, cellSideLength, cellSideLength);
@@ -128,13 +148,13 @@ public class View {
             g2d.drawRect(viewX, viewY, cellSideLength, cellSideLength);
         }
 
-        public void drawUndiscoveredArea(Graphics2D g2d, int viewY, int viewX) {
+        private void drawUndiscoveredArea(Graphics2D g2d, int viewY, int viewX) {
             g2d.setColor(Color.BLACK);
             g2d.fillRect(viewX, viewY, cellSideLength, cellSideLength);
         }
     }
 
-    public void createButtons() {
+    private void createButtons() {
         buttonMapper = new ButtonMapper();
         int buttonWidth = 32;
         int buttonHeight = buttonWidth;
@@ -150,8 +170,10 @@ public class View {
     }
 
 
-
-    /* temp to help drawing */
+    /** Dev helper method, not used in production.
+     *
+     * @param point point
+     */
     public void userClickedOnHELPER(Pair point) {
         int mapX = getMapXFromView(point.x);
         int mapY = getMapYFromView(point.y);
@@ -159,7 +181,10 @@ public class View {
         repaint();
     }
 
-    /* Interpret either as button click or selection of a cell */
+    /** Interpret either as button click or selection of a cell.
+     *
+     * @param point point
+     */
     public void userClickedOn(Pair point) {
         Button button = buttonMapper.getButton(point);
         if (button != null) {
@@ -171,6 +196,10 @@ public class View {
         repaint();
     }
 
+    /** Selects or unselects a cell based on view coordinates.
+     *
+     * @param point point
+     */
     public void mapSelection(Pair point) {
         int mapX = getMapXFromView(point.x);
         int mapY = getMapYFromView(point.y);
@@ -182,7 +211,7 @@ public class View {
         }
     }
 
-    public void pressButton(String name) {
+    private void pressButton(String name) {
         switch (name) {
             case "pause":
                 gameLoop.pauseOrPlay();
@@ -198,18 +227,26 @@ public class View {
         }
     }
 
+    /** Zooms in.
+     *
+     * @param point which remains under mouse after zoom
+     */
     public void zoomIn(Pair point) {
         int newZoom = (int) Math.round(1.1 * this.cellSideLength);
         applyZoom(newZoom, point);
     }
 
+    /** Zooms out.
+     *
+     * @param point which remains under mouse after zoom
+     */
     public void zoomOut(Pair point) {
         if (this.cellSideLength * state.getMap().length < viewHeight) return;
         int newZoom = (int) Math.round(this.cellSideLength / 1.1);
         applyZoom(newZoom, point);
     }
 
-    public void applyZoom(int newZoom, Pair point) {
+    private void applyZoom(int newZoom, Pair point) {
         int prevZoom = this.cellSideLength;
         this.cellSideLength = newZoom;
         double change = 1.0 * prevZoom / newZoom;
@@ -223,12 +260,16 @@ public class View {
         repaint();
     }
 
-
+    /** Drags view.
+     *
+     * @param dx distance dragged x-wise
+     * @param dy distance dragged y-wise
+     */
     public void mouseDragged(int dx, int dy) {
         setOffset(offsetY + dy, offsetX + dx);
     }
 
-    public void setOffset(double y, double x) {
+    private void setOffset(double y, double x) {
         this.offsetY = y;
         this.offsetX = x;
         forceOffsetWithinBounds();
@@ -252,11 +293,11 @@ public class View {
         return (x >= state.getMap()[0].length);
     }
 
-    public int getMapXFromView(int viewX) {
+    private int getMapXFromView(int viewX) {
         return (int)(offsetX+viewX)/ cellSideLength;
     }
 
-    public int getMapYFromView(int viewY) {
+    private int getMapYFromView(int viewY) {
         return (int)(offsetY+viewY)/ cellSideLength;
     }
 

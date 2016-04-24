@@ -13,15 +13,15 @@ import static util.Utils.tryToSleep;
  * Periodically asks for game state update and repaint.
  */
 public class GameLoop {
-    State gameState;
+    private State gameState;
     private boolean paused;
-    Average updateTimes;
-    long prevUpdatePaintedTime;
-    long lastUpdateBurnedTime;
-    long currentSpeed; /* Goal how many milliseconds between updates */
-    int indexForCurrentSpeed;
-    List<Long> speedOptions;
-    View view;
+    private Average updateTimes;
+    private long prevUpdatePaintedTime;
+    private long lastUpdateBurnedTime;
+    private long currentSpeed; /* Goal how many milliseconds between updates */
+    private int indexForCurrentSpeed;
+    private List<Long> speedOptions;
+    private View view;
 
     /**
      * Constructor initializes game loop.

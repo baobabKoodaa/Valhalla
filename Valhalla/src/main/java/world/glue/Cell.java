@@ -14,8 +14,10 @@ import static util.MagicNumbers.*;
  * Each square in our 2D Grid is a Cell.
  */
 public class Cell {
+    /** Cell coordinates. */
     public int y;
     public int x;
+
     private Terrain terrain;
     private boolean[] visible;
     private List<Element> elements;

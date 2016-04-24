@@ -13,8 +13,8 @@ import static util.MagicNumbers.NANOBOT_LINE_OF_SIGHT;
  * Traditional worm (like Nokia cellphone games).
  */
 public class Worm extends Organism {
-    Deque<Cell> partsOfWorm;
-    int length;
+    private Deque<Cell> partsOfWorm;
+    private int length;
 
     @Override
     public void physicalBirth(Cell birthPlace) {
@@ -50,7 +50,6 @@ public class Worm extends Organism {
             if (limb.getOrganism() == this) {
                 dropTailUpTo(moveTo);
             } else {
-                System.out.println("Killed a friendly. Check this works ok.");
                 limb.getOrganism().takeDamage(moveTo);
             }
         }
@@ -105,5 +104,9 @@ public class Worm extends Organism {
         for (Cell cell : cellsInRange) {
             cell.setVisibleTo(getPlayer());
         }
+    }
+
+    public int getLength() {
+        return length;
     }
 }

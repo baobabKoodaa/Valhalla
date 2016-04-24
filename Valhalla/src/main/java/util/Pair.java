@@ -4,6 +4,7 @@ package util;
  * Pair can represent a pixel in view or a cell in state.
  */
 public class Pair {
+    /** Coordinates. */
     public int y;
     public int x;
 
