@@ -1,9 +1,9 @@
 ### Tuntikirjanpito
 
 Yht 64h, eriteltynä:
-...koodausta 25h
-...suunnittelua 12h (en lopulta toteuttanut peliä mitä suunnittelin)
-...diipadaa 27h
+* koodausta 25h
+* suunnittelua 12h (en lopulta toteuttanut peliä mitä suunnittelin)
+* diipadaa 27h
 
 Päivä | Tunnit | Kuvaus
 --------------- | ----- | ------
